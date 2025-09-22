@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Tavola - Display</title>
+    <title>SmartX - Display</title>
 </head>
 
 <style>
@@ -119,6 +119,7 @@ select[name="categories"] {
     }
     ?>
 
-</body>
+    
 
+</body>
 </html>

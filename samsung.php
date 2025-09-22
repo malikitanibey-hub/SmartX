@@ -69,6 +69,14 @@
         </div>
     </div>
 
+<!-- Back Buttom -->
+<a href="products.php" 
+   style="display: inline-block; padding: 8px 12px; background-color: #f0f0f0; 
+          color: #000000ff; border-radius: 5px; text-decoration: none; 
+          font-size: 16px; margin-bottom: 10px;">
+    &#8592; 
+</a>
+
  <div class="gallary">
   <?php
     include "connect.php";
