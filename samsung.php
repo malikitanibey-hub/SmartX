@@ -93,9 +93,9 @@
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 echo "<div class='cont'  data-product-id='" . $row['id'] . "'>";
-                echo "<h3> " . $row['product_name'] . " </h3>";
-                echo "<img src='" . $row['image'] . "'>";
-                echo "<p>" . $row['description'] . "</p>";
+                echo "<h3> " . $row['product_name'] . " </h3><br>";
+                echo "<img src='" . $row['image'] . "'><br>";
+                echo "<p>" . $row['description'] . "</p><br>";
                 echo "<h6>" . $row['price'] . " $</h6>";
                 echo "<button class='buy-1'>Add To Cart</button>";
                 echo "</div>";
