@@ -10,7 +10,7 @@ if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     $delete_sql = "DELETE FROM products WHERE id = $delete_id";
     if (mysqli_query($conn, $delete_sql)) {
-        $successMessage = "Product deleted successfully.";
+        $successMessage = "Product deleted successfully✅";
     } else {
         $error = "Error deleting product: " . mysqli_error($conn);
     }
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             $maxSize = 3 * 1024 * 1024; // 3MB
 
             if (!in_array($_FILES['phone-image']['type'], $allowedTypes)) {
-                $error = "Invalid image type. Only JPEG, PNG, and JPG are allowed.";
+                $error = "❌Invalid image type. Only JPEG, PNG, and JPG are allowed";
             } elseif ($_FILES['phone-image']['size'] > $maxSize) {
                 $error = "Image size exceeds the maximum limit of 3MB.";
             } else {
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
                 $query->bind_param("ssssi", $phoneName, $phonePrice, $phoneDescription, $imagePath, $phoneCategory);
 
                 if ($query->execute()) {
-                    $successMessage = "Phone added successfully.";
+                    $successMessage = "Phone added successfully✅";
                 } else {
                     $error = "Error: " . $query->error;
                 }

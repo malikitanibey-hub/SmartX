@@ -16,6 +16,8 @@ if (mysqli_num_rows($result) == 0) {
 }
 $product = mysqli_fetch_assoc($result);
 
+$message = "";
+
 // Handle update form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -23,12 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description']);
     $category_id = intval($_POST['category']);
 
+     $valid = true; // ✅ Flag to control update
+
     // Handle image upload
     $imagePath = $product['image'];
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         if (!in_array($_FILES['image']['type'], $allowedTypes)) {
-            echo "<p style='color:red;'>Invalid image type.</p>";
+            $message = "<p style='color:red; text-align:center;'> ❌Invalid image type. Only JPG and PNG are allowed.</p>";
+            $valid = false; // ❌ Stop update
         } else {
             $imageNewName = uniqid('', true) . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $imagePath = "Images/" . $imageNewName;
@@ -37,17 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Update product
+    if ($valid) {
     $updateSql = "UPDATE products 
                   SET name='$name', price='$price', description='$description', image='$imagePath', category_id='$category_id'
                   WHERE id=$id";
     if (mysqli_query($conn, $updateSql)) {
-        echo "<p style='color:green;'>Product updated successfully.</p>";
-        // Refresh product info
+  $message = "<p style='color:green; text-align:center;'>Product updated successfully✅</p>";       
         $result = mysqli_query($conn, "SELECT * FROM products WHERE id = $id");
         $product = mysqli_fetch_assoc($result);
     } else {
-        echo "<p style='color:red;'>Error updating product: " . mysqli_error($conn) . "</p>";
+            $message = "<p style='color:red; text-align:center;'>Error updating product: " . mysqli_error($conn) . "</p>";
     }
+   }
 }
 ?>
 <!DOCTYPE html>
@@ -92,11 +98,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-submit:hover {
             background-color: rgb(200, 57, 157);
         }
+        .message {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="form-container">
     <h2>Update Product</h2>
+    <div class="message">
+        <?php echo $message; ?>
+    </div>
+
     <form action="update.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data">
         <label>Product Name:</label>
         <input type="text" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required>
