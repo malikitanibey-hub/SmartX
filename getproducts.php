@@ -16,7 +16,7 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<div class='product'>";
         echo "<h3>" . htmlspecialchars($row['name']) . "</h3>";
-        echo "<p>Price: " . htmlspecialchars($row['price']) . "</p>";
+        echo "<p>Price: " . htmlspecialchars($row['price']) . "$</p>";
         echo "<p>Description: " . htmlspecialchars($row['description']) . "</p>";
         echo "<img src='" . htmlspecialchars($row['image']) . "' alt='Image'>";
 
@@ -36,4 +36,3 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "<p>No products found.</p>";
 }
-?>

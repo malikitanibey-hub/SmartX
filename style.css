@@ -223,6 +223,8 @@ footer p {
   width: 100%;
   border-top: solid 2px #eff1f4;
 }
+
+
 /*About Us */
 .h-bottom {
   text-align: center;
@@ -582,136 +584,248 @@ footer p {
   background-color: #796e45;
 }
 
-/* sign up */
+/*  Sign Up / Sign In Form  */
 
 .signup-cont {
-  background-color: #4682b4;
-  width: 450px;
-  padding: 1.5rem;
-  margin: 50px auto;
-  border-radius: 10px;
-  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9);
+background: rgba(255, 182, 193, 0.35);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 182, 193, 0.4);
+  width: 420px;
+  padding: 2rem;
+  margin: 80px auto;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.15);
+  animation: fadeIn 0.6s ease-in-out;
 }
-form {
-  margin: 0 2rem;
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
 .form-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
-  padding: 1.4rem;
-  margin: 0.4rem;
+  color: #1c3d5a;
+  margin-bottom: 1.5rem;
 }
-.input-group input {
-  color: inherit;
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #000000;
-  padding-left: 1.5rem;
-  font-size: 15px;
-}
+
 .input-group {
-  padding: 1% 0;
+  margin-bottom: 1.2rem;
   position: relative;
 }
+
 .input-group i {
   position: absolute;
-  color: black;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #315f72;
+  font-size: 18px;
 }
-.input-group input:focus {
-  background-color: transparent;
-  outline: transparent;
-  border-bottom: 2px solid hsl(327, 90%, 28%);
-}
-.input-group label {
-  position: relative;
-  left: 1.2em;
-  top: -1.3em;
-  cursor: auto;
-  transition: 0.3s ease all;
-}
-.recover {
-  text-align: right;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-.recover a {
-  color: rgb(125, 125, 235);
-  text-decoration: none;
-}
-.recover a:hover {
-  color: blue;
-  text-decoration: underline;
-}
-.btn {
-  font-size: 1.1rem;
-  padding: 8px 0;
-  border-radius: 5px;
-  outline: none;
-  border: none;
+
+.input-group input {
   width: 100%;
-  background: rgb(125, 125, 235);
+  padding: 12px 15px 12px 40px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #b3c6d1;
+  background-color: #f8fbff;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #4682b4;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(70,130,180,0.4);
+}
+
+.btn {
+  width: 100%;
+  background: #4682b4;
   color: white;
-  transition: 0.9s;
-  cursor: pointer;
-}
-.btn:hover {
-  background-color: #07001f;
-}
-.or {
-  font-size: 1.1rem;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1rem;
   margin-top: 0.5rem;
-  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
+
+.btn:hover {
+  background: #315f72;
+}
+
+.or {
+  text-align: center;
+  margin: 1rem 0;
+  color: #6f7c80;
+  font-size: 0.9rem;
+}
+
 .icon {
   text-align: center;
 }
+
 .icon i {
-  color: rgb(125, 125, 235);
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border: 2px solid #5e95d7;
-  margin: 0 15px;
-  transition: 1s;
+  color: #4682b4;
+  padding: 10px 14px;
+  font-size: 20px;
+  border: 1px solid #bcd2e0;
+  border-radius: 8px;
+  margin: 5px 10px;
+  transition: 0.3s ease;
 }
+
 .icon i:hover {
-  background-color: #07001f;
-  font-size: 1.6rem;
-  border: 2px solid rgb(125, 125, 235);
+  background-color: #4682b4;
+  color: #fff;
+  border-color: #4682b4;
 }
+
 .links {
-  display: flex;
-  justify-content: space-around;
-  padding: 0 4rem;
-  margin-top: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
   font-weight: bold;
+  color: #315f72;
 }
+
 .links button {
-  color: #5e95d7;
+  color: #4682b4;
   border: none;
-  background-color: transparent;
+  background: transparent;
   font-size: 1rem;
-  font-weight: bold;
+  cursor: pointer;
 }
+
 .links button:hover {
   text-decoration: underline;
-  color: blue;
 }
-@media (max-width: 1200px) {
-  .cont {
-    width: 30%;
-  }
+
+.error-msg, .success-msg {
+  font-size: 0.95rem;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 12px;
 }
-@media (max-width: 1000px) {
-  .cont {
-    width: 45%;
-  }
+
+.error-msg {
+  background: #ffe1e1;
+  border: 1px solid #d10000;
+  color: #b70000;
 }
-@media (max-width: 750px) {
-  .cont {
-    width: 100%;
-  }
+
+.success-msg {
+  background: #e1ffe8;
+  border: 1px solid #1a9f3a;
+  color: #0b701a;
+}
+
+.recover a {
+    color: #003afa; 
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.recover a:hover {
+    color: #1ea5e9; 
+    text-decoration: underline;
+}
+
+.or {
+    position: relative;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #b3c6d1;
+    margin: 1.2rem 0;
+
+}
+
+.or::before,
+.or::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #b3c6d1; 
+}
+
+.or::before {
+    left: 0;
+}
+
+.or::after {
+    right: 0;
+}
+
+.icon i {
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.icon i.fa-google {
+    background-color: #db4437;
+    border: none;
+}
+
+.icon i.fa-google:hover {
+    background-color: #c1351d;
+}
+
+.icon i.fa-facebook {
+    background-color: #271ad9;
+    border: none;
+}
+
+.icon i.fa-facebook:hover {
+    background-color: #3a339a;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    color: #4682b4;
+}
+
+.links p {
+    margin: 0;
+    color: #4397db;
+}
+
+.links button {
+    color: #003afa; 
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.links button:hover {
+    text-decoration: underline;
+    color: #1ea5e9; 
+}
+
+
+.welcome-banner {
+    background-color: #4CAF50; /* green */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 20px;
 }
