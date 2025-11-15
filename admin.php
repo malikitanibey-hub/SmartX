@@ -89,9 +89,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>SmartX Admin</title>
     <link rel="stylesheet" href="style/add_room.css">
     <style>
@@ -105,21 +107,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             background-attachment: fixed;
             background-size: cover;
         }
+
         header {
             background-color: #333;
             color: white;
             padding: 10px 20px;
             text-align: center;
         }
+
         .header-top .title h1 {
             margin: 0;
         }
+
         .header-top .icons a {
             color: lightgreen;
             margin-left: 15px;
             text-decoration: none;
             font-size: 18px;
         }
+
         .form-container {
             max-width: 600px;
             margin: 40px auto;
@@ -128,17 +134,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .form-container h2 {
             margin-bottom: 20px;
             text-align: center;
             color: #333;
         }
+
         .form-container label {
             display: block;
             margin: 10px 0 5px;
             color: #333;
             font-weight: bold;
         }
+
         .form-container input,
         .form-container textarea,
         .form-container select {
@@ -149,6 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             border-radius: 4px;
             font-size: 14px;
         }
+
         .btn-submit {
             background-color: rgb(25, 41, 218);
             color: white;
@@ -159,111 +169,117 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .btn-submit:hover {
             background-color: rgb(200, 57, 157);
         }
+
         .product {
             background: #fff;
             padding: 15px;
             margin: 15px auto;
             max-width: 600px;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
+
         .product img {
             max-width: 100px;
             display: block;
         }
+
         .product form {
             display: inline-block;
             margin-right: 5px;
         }
     </style>
 </head>
+
 <body>
-<header>
-    <div class="header-top">
-        <div class="title">
-            <h1>Smart <span class="x">X</span> Admin</h1>
+    <header>
+        <div class="header-top">
+            <div class="title">
+                <h1>Smart <span class="x">X</span> Admin</h1>
+            </div>
+            <div class="icons">
+                <a href="logout.php">
+                    <i class="fa-solid fa-right-from-bracket" style="color: #d32f2f;"></i> Go to Home Page
+                </a>
+            </div>
         </div>
-        <div class="icons">
-            <a href="logout.php">
-                <i class="fa-solid fa-right-from-bracket" style="color: #d32f2f;"></i> Go to Home Page
-            </a>
-        </div>
+    </header>
+
+    <div class="form-container">
+        <h2>Add Phone</h2>
+
+        <?php if (!empty($successMessage)): ?>
+            <div style="color: green;"><?php echo htmlspecialchars($successMessage); ?></div>
+        <?php elseif (!empty($error)): ?>
+            <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <form action="admin.php" method="POST" enctype="multipart/form-data">
+            <label for="phone-name">Phone Name:</label>
+            <input type="text" id="phone-name" name="phone-name" placeholder="Enter Phone Name" required>
+
+            <label for="phone-price">Phone Price:</label>
+            <input type="text" id="phone-price" name="phone-price" placeholder="Enter Phone Price" required>
+
+            <label for="phone-description">Phone Description:</label>
+            <input type="text" id="phone-description" name="phone-description" placeholder="Enter Phone Description" required>
+
+            <label for="phone-category">Phone Category:</label>
+            <select id="phone-category" name="phone-category" required>
+                <?php
+                $result = $conn->query("SELECT id, name FROM categories");
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='{$row['id']}'>{$row['name']}</option>";
+                }
+                ?>
+            </select>
+
+            <label for="phone-image">Phone Image:</label>
+            <input type="file" id="phone-image" name="phone-image" accept="image/*" required>
+
+            <input class="btn-submit" type="submit" value="Add Phone">
+            <input class="btn-submit" type="reset" value="Reset">
+
+
+            <!-- Category Dropdown -->
+            <center>
+                <form>
+                    <select name="categories" onchange="showProduct(this.value)">
+                        <option value="">Select Category</option>
+                        <option value="-1">All Category</option>
+                        <?php
+                        $sql = "SELECT * FROM categories";
+                        $result = mysqli_query($conn, $sql);
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                        } ?>
+                    </select>
+                </form><br>
+
+                <div id="txtHint"><b>Product info will be listed here...</b></div>
+            </center>
+
+            <script>
+                function showProduct(categoryId) {
+                    if (categoryId == "") {
+                        document.getElementById("txtHint").innerHTML = "";
+                        return;
+                    }
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onload = function() {
+                        document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                    xhttp.open("GET", "getProducts.php?q=" + categoryId, true);
+                    xhttp.send();
+                }
+            </script>
+
+        </form>
     </div>
-</header>
-
-<div class="form-container">
-    <h2>Add Phone</h2>
-
-    <?php if (!empty($successMessage)): ?>
-        <div style="color: green;"><?php echo htmlspecialchars($successMessage); ?></div>
-    <?php elseif (!empty($error)): ?>
-        <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
-
-    <form action="admin.php" method="POST" enctype="multipart/form-data">
-        <label for="phone-name">Phone Name:</label>
-        <input type="text" id="phone-name" name="phone-name" placeholder="Enter Phone Name" required>
-
-        <label for="phone-price">Phone Price:</label>
-        <input type="text" id="phone-price" name="phone-price" placeholder="Enter Phone Price" required>
-
-        <label for="phone-description">Phone Description:</label>
-        <input type="text" id="phone-description" name="phone-description" placeholder="Enter Phone Description" required>
-
-        <label for="phone-category">Phone Category:</label>
-        <select id="phone-category" name="phone-category" required>
-            <?php
-            $result = $conn->query("SELECT id, name FROM categories");
-            while ($row = $result->fetch_assoc()) {
-                echo "<option value='{$row['id']}'>{$row['name']}</option>";
-            }
-            ?>
-        </select>
-
-        <label for="phone-image">Phone Image:</label>
-        <input type="file" id="phone-image" name="phone-image" accept="image/*" required>
-
-        <input class="btn-submit" type="submit" value="Add Phone">
-        <input class="btn-submit" type="reset" value="Reset">
-
-
-<!-- Category Dropdown -->
-<center>
-    <form>
-        <select name="categories" onchange="showProduct(this.value)">
-            <option value="">Select Category</option>
-            <option value="-1">All Category</option>
-            <?php
-            $sql = "SELECT * FROM categories";
-            $result = mysqli_query($conn, $sql);
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-            } ?>
-        </select>
-    </form><br>
-
-    <div id="txtHint"><b>Product info will be listed here...</b></div>
-</center>
-
-<script>
-function showProduct(categoryId) {
-  if (categoryId == "") {
-    document.getElementById("txtHint").innerHTML = "";
-    return;
-  }
-  const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
-    document.getElementById("txtHint").innerHTML = this.responseText;
-  }
-  xhttp.open("GET", "getProducts.php?q=" + categoryId, true);
-  xhttp.send();
-}
-</script>
-
-    </form>
-</div>
 </body>
+
 </html>

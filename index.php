@@ -17,6 +17,7 @@ unset($_SESSION['active_form']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
@@ -26,7 +27,8 @@ unset($_SESSION['active_form']);
 <body>
 
     <!-- SignUp -->
-    <div class="signup-cont" id="signup" style="display: <?php echo ($activeForm=="signup") ? "block" : "none"; ?>;">
+    <div class="signup-cont" id="signup" style="display: <?php echo ($activeForm == "signup") ? "block" : "none"; ?>;">
+
         <h1 class="form-title">Register</h1>
 
         <form method="post" action="register.php">
@@ -72,7 +74,7 @@ unset($_SESSION['active_form']);
     </div>
 
     <!-- SignIn -->
-    <div class="signup-cont" id="signIn" style="display: <?php echo ($activeForm=="signin") ? "block" : "none"; ?>;">
+    <div class="signup-cont" id="signIn" style="display: <?php echo ($activeForm == "signin") ? "block" : "none"; ?>;">
         <h1 class="form-title">Sign In</h1>
 
         <form method="post" action="register.php">
@@ -116,4 +118,5 @@ unset($_SESSION['active_form']);
     <script src="script.js"></script>
 
 </body>
+
 </html>

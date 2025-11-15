@@ -15,6 +15,7 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart X</title>
     <link rel="stylesheet" href="style.css">

@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Update Product</title>
     <style>
         body {

@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Recover Password</title>
     <link rel="stylesheet" href="style.css">
 </head>
