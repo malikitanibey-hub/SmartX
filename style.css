@@ -105,8 +105,6 @@ input {
   font-size: large;
 }
 
-
-
 /* Home */
 
 .container {
@@ -223,7 +221,6 @@ footer p {
   width: 100%;
   border-top: solid 2px #eff1f4;
 }
-
 
 /*About Us */
 .h-bottom {
@@ -390,37 +387,35 @@ footer p {
 
 /* FILTER DROPDOWN UNDER TITLE */
 .filter-condition {
-    display: flex;
-    justify-content: center; /* center horizontally */
-    margin: 10px 0 30px 0;   /* space between title and products */            /* remove unnecessary padding */
+  display: flex;
+  justify-content: center; /* center horizontally */
+  margin: 10px 0 30px 0; /* space between title and products */ /* remove unnecessary padding */
 }
 
 .filter-condition select {
-    background-color: #f5f5f5;
-    color: #333;
-    border: 2px solid #c7c7c7;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #f5f5f5;
+  color: #333;
+  border: 2px solid #c7c7c7;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .filter-condition select:hover {
-    background-color: #ffffff;
-    border-color: yellowgreen;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background-color: #ffffff;
+  border-color: yellowgreen;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .filter-condition select:focus {
-    border-color: #a5d6a7;
-    box-shadow: 0 0 0 3px rgba(155, 207, 102, 0.3);
+  border-color: #a5d6a7;
+  box-shadow: 0 0 0 3px rgba(155, 207, 102, 0.3);
 }
-
-
 
 /* Cart */
 
@@ -587,20 +582,26 @@ footer p {
 /*  Sign Up / Sign In Form  */
 
 .signup-cont {
-background: rgba(255, 182, 193, 0.35);
+  background: rgba(255, 182, 193, 0.35);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 182, 193, 0.4);
   width: 420px;
   padding: 2rem;
   margin: 80px auto;
   border-radius: 15px;
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.6s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form-title {
@@ -614,6 +615,17 @@ background: rgba(255, 182, 193, 0.35);
 .input-group {
   margin-bottom: 1.2rem;
   position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-group img {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .input-group i {
@@ -633,12 +645,13 @@ background: rgba(255, 182, 193, 0.35);
   border: 1px solid #b3c6d1;
   background-color: #f8fbff;
   transition: 0.3s ease;
+  padding-right: 45px;
 }
 
 .input-group input:focus {
   border-color: #4682b4;
   background-color: #ffffff;
-  box-shadow: 0 0 5px rgba(70,130,180,0.4);
+  box-shadow: 0 0 5px rgba(70, 130, 180, 0.4);
 }
 
 .btn {
@@ -704,7 +717,8 @@ background: rgba(255, 182, 193, 0.35);
   text-decoration: underline;
 }
 
-.error-msg, .success-msg {
+.error-msg,
+.success-msg {
   font-size: 0.95rem;
   padding: 12px;
   border-radius: 8px;
@@ -725,107 +739,113 @@ background: rgba(255, 182, 193, 0.35);
 }
 
 .recover a {
-    color: #003afa; 
-    font-weight: 500;
-    transition: 0.3s ease;
+  color: #315f72;
+  font-weight: bold;
+  transition: 0.3s ease;
 }
 
 .recover a:hover {
-    color: #1ea5e9; 
-    text-decoration: underline;
+  color: #1ea5e9;
+  text-decoration: underline;
 }
 
 .or {
-    position: relative;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #b3c6d1;
-    margin: 1.2rem 0;
-
+  position: relative;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b3c6d1;
+  margin: 1.2rem 0;
 }
 
 .or::before,
 .or::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: #b3c6d1; 
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #b3c6d1;
+  font-weight: bold;
 }
 
 .or::before {
-    left: 0;
+  left: 0;
 }
 
 .or::after {
-    right: 0;
+  right: 0;
 }
 
 .icon i {
-    color: #fff;
-    padding: 12px 16px;
-    font-size: 20px;
-    border-radius: 10px;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: 0.3s ease;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 .icon i.fa-google {
-    background-color: #db4437;
-    border: none;
+  background-color: #db4437;
+  border: none;
 }
 
 .icon i.fa-google:hover {
-    background-color: #c1351d;
+  background-color: #c1351d;
 }
 
 .icon i.fa-facebook {
-    background-color: #271ad9;
-    border: none;
+  background-color: #271ad9;
+  border: none;
 }
 
 .icon i.fa-facebook:hover {
-    background-color: #3a339a;
+  background-color: #3a339a;
 }
 
 .links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 1.2rem;
-    font-size: 0.95rem;
-    color: #4682b4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.2rem;
+  font-size: 0.95rem;
+  color: #4682b4;
 }
 
 .links p {
-    margin: 0;
-    color: #4397db;
+  margin: 0;
+  color: #4397db;
 }
 
 .links button {
-    color: #003afa; 
-    font-weight: 600;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease;
+  color: #3b819e;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .links button:hover {
-    text-decoration: underline;
-    color: #1ea5e9; 
+  text-decoration: underline;
+  color: #1ea5e9;
 }
 
-
 .welcome-banner {
-    background-color: #4CAF50; /* green */
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 0 0 10px 10px;
-    margin-bottom: 20px;
+  background-color: #4caf50; /* green */
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 0 0 10px 10px;
+  margin-bottom: 20px;
+}
+
+.signup-cont .site-logo {
+  width: 160px;
+  height: auto;
+  display: block;
+  margin-left: 6rem;
 }

@@ -108,23 +108,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             background-size: cover;
         }
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
+        /* HEADER CONTAINER */
+header {
+    background: #ffffff;
+    padding: 10px 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .header-top .title h1 {
-            margin: 0;
-        }
+/* FLEX LAYOUT */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .header-top .icons a {
-            color: lightgreen;
-            margin-left: 15px;
-            text-decoration: none;
-            font-size: 18px;
-        }
+/* LEFT LOGO */
+.logo-box img {
+    width: 90px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* CENTER TITLE */
+.title h1 {
+    font-size: 28px;
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #ddd;
+}
+
+/* Highlight X */
+.x {
+    color: #0b57d0;
+    font-weight: bold;
+}
+
+/* RIGHT SIDE LINKS */
+.icons a {
+    font-size: 16px;
+    color: #0b57d0;
+    font-weight: bold;
+    text-decoration: none;
+    background: #e8f0fe;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+/* Hover Effect */
+.icons a:hover {
+    background: #d2e3fc;
+    color: #0844a4;
+}
 
         .form-container {
             max-width: 600px;
@@ -192,21 +231,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             display: inline-block;
             margin-right: 5px;
         }
+
+        .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+
+
     </style>
 </head>
 
 <body>
     <header>
         <div class="header-top">
-            <div class="title">
-                <h1>Smart <span class="x">X</span> Admin</h1>
-            </div>
-            <div class="icons">
-                <a href="logout.php">
-                    <i class="fa-solid fa-right-from-bracket" style="color: #d32f2f;"></i> Go to Home Page
-                </a>
-            </div>
+
+        <!-- LEFT SIDE: LOGO -->
+        <div class="logo-box">
+            <img src="Images/SmartX-logo-removebg-preview.png" class="admin-logo" alt="SmartX Logo">
         </div>
+
+        <!-- CENTER: TITLE -->
+        <div class="title">
+            <h1>Smart <span class="x">X</span> Admin</h1>
+        </div>
+
+        <!-- RIGHT SIDE: ICONS -->
+        <div class="icons">
+            <a href="logout.php">
+                <i class="fa-solid fa-right-from-bracket" style="color: #d32f2f;"></i> Go to Home Page
+            </a>
+        </div>
+
+    </div>
     </header>
 
     <div class="form-container">

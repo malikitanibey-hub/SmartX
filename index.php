@@ -17,7 +17,7 @@ unset($_SESSION['active_form']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
@@ -28,7 +28,9 @@ unset($_SESSION['active_form']);
 
     <!-- SignUp -->
     <div class="signup-cont" id="signup" style="display: <?php echo ($activeForm == "signup") ? "block" : "none"; ?>;">
-
+        <div class="title">
+            <img src="Images/SmartX-logo-removebg-preview.png" class="site-logo" alt="SmartX Logo">
+        </div>
         <h1 class="form-title">Register</h1>
 
         <form method="post" action="register.php">
@@ -52,9 +54,16 @@ unset($_SESSION['active_form']);
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" name="email" placeholder="Email" required>
             </div>
+
             <div class="input-group">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" class="password-input" required>
+                <img src="Images/eye-close.png" class="eye-icon">
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-key"></i>
+                <input type="text" name="passcode" placeholder="Enter a secret code" required>
             </div>
 
             <input type="submit" class="btn" value="Sign Up" name="signUp">
@@ -75,6 +84,9 @@ unset($_SESSION['active_form']);
 
     <!-- SignIn -->
     <div class="signup-cont" id="signIn" style="display: <?php echo ($activeForm == "signin") ? "block" : "none"; ?>;">
+        <div class="title">
+            <img src="Images/SmartX-logo-removebg-preview.png" class="site-logo" alt="SmartX Logo">
+        </div>
         <h1 class="form-title">Sign In</h1>
 
         <form method="post" action="register.php">
@@ -92,8 +104,10 @@ unset($_SESSION['active_form']);
             </div>
             <div class="input-group">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" class="password-input" required>
+                <img src="Images/eye-close.png" class="eyeicon">
             </div>
+
 
             <p class="recover">
                 <a href="recover.php">Recover Password</a>
@@ -110,8 +124,8 @@ unset($_SESSION['active_form']);
         </div>
 
         <div class="links">
-            <p>Don't Have Account Yet ?</p>
-            <button id="signUpButton">Sign Up</button>
+            <p>Create New Account?</p>
+            <button id="signUpButton">Register now</button>
         </div>
     </div>
 

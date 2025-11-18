@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $lastName = $_POST['lName'];
         $email = $_POST['email'];
         $pass = md5($_POST['password']);
+        $passcode = $_POST['passcode'];
 
         // Check if email exists
         $stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
@@ -36,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Insert user
-        $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $firstName, $lastName, $email, $pass);
+        $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password, passcode) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $firstName, $lastName, $email, $pass, $passcode);
         $stmt->execute();
 
         $_SESSION['success'] = "Registration successful! You can now sign in.";
