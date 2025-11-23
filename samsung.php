@@ -45,7 +45,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -143,7 +143,7 @@ $result = mysqli_query($conn, $sql);
                         echo "<div class='cont'  data-product-id='" . $row['id'] . "'>";
                         echo "<h3> " . $row['product_name'] . " </h3><br>";
                         echo "<img src='" . $row['image'] . "'><br>";
-                        echo "<p>" . $row['description'] . "</p><br>";
+                        echo html_entity_decode($row['description']);
                         echo "<h6>" . $row['price'] . " $</h6>";
                         echo "<button class='buy-1'>Add To Cart</button>";
                         echo "</div>";

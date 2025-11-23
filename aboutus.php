@@ -1,5 +1,14 @@
 <?php
 include 'connect.php';
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php");
+    exit;
+}
+$fname = isset($_SESSION['fname']) ? $_SESSION['fname'] : "";
+$lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +31,9 @@ include 'connect.php';
                     <h1>Smart <span class="x">X</span></h1>
                 </div>
                 <div class="icons">
+                    <span style="font-weight:bold; margin-right:20px;">
+                        Welcome, <?php echo htmlspecialchars($fname . ' ' . $lname); ?>
+                    </span>
                     <a href="index.php">
                         <i class="fa-solid fa-right-to-bracket fa-beat"></i>
                     </a>

@@ -1,38 +1,87 @@
+<?php
+include "connect.php";
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: index.php");
+    exit;
+}
+$fname = isset($_SESSION['fname']) ? $_SESSION['fname'] : "";
+$lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
+
+
+// Check if a category is selected
+$category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
+
+// Get category name if category_id is set
+$category_name = "";
+if ($category_id > 0) {
+    $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id");
+    $cat_row = mysqli_fetch_assoc($cat_result);
+    $category_name = $cat_row['name'] ?? "Category";
+}
+
+// Get filter option if any
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'Default';
+
+// If a category is selected, fetch products for that category
+if ($category_id > 0) {
+    $sql = "SELECT products.id, products.name AS product_name, products.image, products.description, products.price, categories.name AS category_name
+            FROM products
+            JOIN categories ON products.category_id = categories.id
+            WHERE products.category_id = $category_id";
+
+    switch ($filter) {
+        case 'LowToHigh':
+            $sql .= " ORDER BY products.price ASC";
+            break;
+        case 'HighToLow':
+            $sql .= " ORDER BY products.price DESC";
+            break;
+        case 'AtoZ':
+            $sql .= " ORDER BY products.name ASC";
+            break;
+        case 'ZtoA':
+            $sql .= " ORDER BY products.name DESC";
+            break;
+        default:
+            $sql .= " ORDER BY products.id ASC";
+    }
+
+    $result = mysqli_query($conn, $sql);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <header>
-
         <div class="header">
             <div class="header-Top">
                 <div class="title">
                     <h1>Smart <span class="x">X</span></h1>
                 </div>
                 <div class="icons">
-                    <a href="index.php"> 
-                        <i class="fa-solid fa-right-to-bracket fa-beat"></i>
-                    </a>
-                    <a href="https://twitter.com">
-                        <i class="fa-brands fa-x-twitter" style="color: black;"></i>
-                    </a>
-                    <a href="https://facebook.com">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    
-                    <a href="https://instagram.com">
-                        <i class="fa-brands fa-instagram" size="40px" style="color: #da1bc0;"></i>
-                    </a>
+                    <span style="font-weight:bold; margin-right:20px;">
+                        Welcome, <?php echo htmlspecialchars($fname . ' ' . $lname); ?>
+                    </span>
+                    <a href="index.php"><i class="fa-solid fa-right-to-bracket fa-beat"></i></a>
+                    <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://instagram.com"><i class="fa-brands fa-instagram" style="color: #da1bc0;"></i></a>
                 </div>
-
             </div>
             <div class="header-bottom">
                 <nav class="navbar">
@@ -40,104 +89,99 @@
                         <li><a href="home.php">Home</a></li>
                         <li><a href="products.php">Products</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
-                        <li><a href="aboutus.php">About Us</a></li>                    </ul>
+                        <li><a href="aboutus.php">About Us</a></li>
+                    </ul>
                 </nav>
             </div>
         </div>
-</header>
+    </header>
 
-<main>
-
-    <div class="cart-container">
-        <header>
-            <h1 style="color: yellowgreen;"> Products Page</h1>
-            <div class="shopping">
-                <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
-                <span class="quantity">0</span>
-            </div>
-        </header>
-        <div class="list"></div>
-    </div>
-    <div class="cart">
-        <h1>Cart</h1>
-        <ul class="listCard"></ul>
-        <div class="checkOut">
-            <div class="total">0</div>
-            <div class="closeShopping">Close</div>
-            <button class="buyButton">BUY</button>
+    <main>
+        <div class="cart-container">
+            <header>
+                <h1 style="color: yellowgreen;">
+                    <?php echo $category_id > 0 ? $category_name : "Products Page"; ?>
+                </h1>
+                <div class="shopping">
+                    <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
+                    <span class="quantity">0</span>
+                </div>
+            </header>
+            <div class="list"></div>
         </div>
-    </div>
 
+        <div class="cart">
+            <h1>Cart</h1>
+            <ul class="listCard"></ul>
+            <div class="checkOut">
+                <div class="total">0</div>
+                <div class="closeShopping">Close</div>
+                <button class="buyButton">BUY</button>
+            </div>
+        </div>
 
-<div class="gallary">
+        <?php if ($category_id == 0) : ?>
+            <!-- Show categories if no category selected -->
+            <div class="gallary">
+                <?php
+                $categories = mysqli_query($conn, "SELECT * FROM categories");
+                while ($row = mysqli_fetch_assoc($categories)) {
+                    echo "<div class='cont'>";
+                    echo "<h3>" . $row['name'] . "</h3>";
+                    echo "<img src='" . $row['image'] . "'>";
+                    echo "<p>Enter to see all products</p>";
+                    echo "<a href='products.php?category=" . $row['id'] . "'><button class='buy-1'>Click Here</button></a>";
+                    echo "</div>";
+                }
+                ?>
+            </div>
+        <?php else : ?>
+            <!-- Show products of the selected category -->
+            <a href="products.php" style="display: inline-block; padding: 8px 12px; background-color: #f0f0f0; color: #000; border-radius: 5px; text-decoration: none; font-size: 16px; margin-bottom: 20px;">
+                &#8592; Back
+            </a>
 
-        <div class="cont">
-            <h3>Samsung</h3>
-            <img src="Images/Samsung/galaxys24ultra.jpg"> 
-            <p>Enter to see the all products</p>   
-             <a href="samsung.php">
-                <button class="buy-1">Click Here</button>
-            </a>       
-            
-         </div>
-   
+            <!-- Filter dropdown -->
+            <div class="filter-condition">
+                <form method="get" action="products.php">
+                    <input type="hidden" name="category" value="<?php echo $category_id; ?>">
+                    <select name="filter" onchange="this.form.submit()">
+                        <option value="Default" <?php if ($filter == 'Default') echo 'selected'; ?>>Default</option>
+                        <option value="LowToHigh" <?php if ($filter == 'LowToHigh') echo 'selected'; ?>>Price: Low to High</option>
+                        <option value="HighToLow" <?php if ($filter == 'HighToLow') echo 'selected'; ?>>Price: High to Low</option>
+                        <option value="AtoZ" <?php if ($filter == 'AtoZ') echo 'selected'; ?>>Name: A to Z</option>
+                        <option value="ZtoA" <?php if ($filter == 'ZtoA') echo 'selected'; ?>>Name: Z to A</option>
+                    </select>
+                </form>
+            </div>
 
-    <div class="cont">
-       <h3>Iphones</h3>
-       <img src="Images/Iphones/Iphone15promax.webp">
-       <p>Enter to see the all products</p>
-       <a href="iphone.php">
-        <button class="buy-1">Click Here</button>
-      </a>
-    </div>
-    
+            <!-- Show products of the selected category -->
+            <div class="gallary">
+                <?php
+                if ($result && mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<div class='cont' data-product-id='" . $row['id'] . "'>";
+                        echo "<h3>" . $row['product_name'] . "</h3>";
+                        echo "<img src='" . $row['image'] . "'>";
+                        echo "<p>" . html_entity_decode($row['description']) . "</p>";
+                        echo "<h6>" . $row['price'] . " $</h6>";
+                        echo "<button class='buy-1'>Add To Cart</button>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<p>No products found in this category.</p>";
+                }
+                ?>
+            </div>
+        <?php endif; ?>
 
-    <div class="cont">
-       <h3>Earphones</h3>
-       <img src="Images/Headphones/apple airpods pro 2.webp">
-       <p>Enter to see the all products</p>
-       <a href="earphones.php">
-        <button class="buy-1">Click Here</button>
-      </a>
-    </div>
+    </main>
 
+    <footer>
+        <p>Copyright 2024 &copy; <b>SmartX Lebanon</b></p>
+    </footer>
 
-   <div class="cont">
-       <h3>Laptops</h3>
-       <img src="Images/Laptop/HPLabtop.webp">
-       <p>Enter to see the all products</p>
-       <a href="laptop.php">
-        <button class="buy-1">Click Here</button>
-      </a>
-    </div>
-
-
-    <div class="cont">
-        <h3>Ipads</h3>
-        <img src="Images/Ipads/ipadsimage.jpg">
-        <p>Enter to see the all products</p>
-        <a href="ipad.php">
-         <button class="buy-1">Click Here</button>
-       </a>
-     </div>
-
-
-     <div class="cont">
-        <h3>SmartWatch</h3>
-        <img src="Images/SmartWactch/images.jpeg">
-        <p>Enter to see the all products</p>
-        <a href="smartwatch.php">
-         <button class="buy-1">Click Here</button>
-       </a>
-     </div>
-   </div>   
-   </main>
-
-<footer>
-    <p>Copyright 2024 &copy; <b>SmartX Lebanon</b></p>
-   </footer>
-
-
-   <script src="addtoCart.js"></script>
+    <script src="addtoCart.js"></script>
 </body>
+
 </html>

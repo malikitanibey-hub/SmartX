@@ -2,6 +2,10 @@
 require 'connect.php';
 session_start();
 
+if (!isset($_SESSION['admin']) || !isset($_SESSION['tab_token'])) {
+    header("Location: admin_login.php");
+    exit;
+}
 $error = "";
 $successMessage = "";
 
@@ -87,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,95 +100,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>SmartX Admin</title>
-    <link rel="stylesheet" href="style/add_room.css">
     <style>
+        /* ===== BODY & BACKGROUND ===== */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4ff;
+            background-color: #f4f4f4;
             background-image: url(Images/a7adf41edf32a903205261917fb7d1e6.jpg);
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
+            color: #333;
         }
 
-        /* HEADER CONTAINER */
-header {
-    background: #ffffff;
-    padding: 10px 25px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        /* ===== HEADER / NAVBAR ===== */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-/* FLEX LAYOUT */
-.header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-/* LEFT LOGO */
-.logo-box img {
-    width: 90px;
-    height: auto;
-    cursor: pointer;
-}
+        h1 {
+            font-family: "Poppins", sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0A3D62;
+            /* Dark blue */
+        }
 
-/* CENTER TITLE */
-.title h1 {
-    font-size: 28px;
-    margin: 0;
-    color: #333;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px #ddd;
-}
+        h1 .x {
+            color: #0b57d0;
+        }
 
-/* Highlight X */
-.x {
-    color: #0b57d0;
-    font-weight: bold;
-}
+        .logo-box img {
+            width: 100px;
+            cursor: pointer;
+        }
 
-/* RIGHT SIDE LINKS */
-.icons a {
-    font-size: 16px;
-    color: #0b57d0;
-    font-weight: bold;
-    text-decoration: none;
-    background: #e8f0fe;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
+        .title h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #333;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px #ddd;
+        }
 
-/* Hover Effect */
-.icons a:hover {
-    background: #d2e3fc;
-    color: #0844a4;
-}
+        .icons a {
+            font-size: 16px;
+            color: #0b57d0;
+            font-weight: bold;
+            text-decoration: none;
+            background: #dbdfe8ff;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
 
+        .icons a:hover {
+            background: #d2e3fc;
+        }
+
+        /* ===== FORM CONTAINER ===== */
         .form-container {
             max-width: 600px;
             margin: 40px auto;
-            background: #33aaceff;
+            background: rgba(51, 170, 206, 0.85);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .form-container h2 {
             margin-bottom: 20px;
             text-align: center;
-            color: #333;
+            color: #fff;
+            font-weight: 700;
         }
 
         .form-container label {
             display: block;
             margin: 10px 0 5px;
-            color: #333;
+            color: #fff;
             font-weight: bold;
         }
 
@@ -191,154 +197,233 @@ header {
         .form-container textarea,
         .form-container select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
             font-size: 14px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        .form-container select {
+            color: #000;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .btn-submit {
             background-color: rgb(25, 41, 218);
-            color: white;
+            color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            margin-right: 10px;
         }
 
         .btn-submit:hover {
             background-color: rgb(200, 57, 157);
         }
 
-        .product {
-            background: #fff;
+        .btn-reset {
+            background-color: #ff4081;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-reset:hover {
+            background-color: #e6006e;
+        }
+
+        /* ===== PRODUCT CARDS ===== */
+        #txtHint .product {
+            background: rgba(255, 255, 255, 0.85);
             padding: 15px;
             margin: 15px auto;
             max-width: 600px;
-            border-radius: 5px;
+            border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            /* Info stacked vertically */
+            align-items: center;
+            /* center content inside the card */
+            text-align: center;
+            /* text inside centered */
         }
 
-        .product img {
-            max-width: 100px;
-            display: block;
+        #txtHint .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            /* center the text */
         }
 
-        .product form {
-            display: inline-block;
-            margin-right: 5px;
+        #txtHint .product-info span {
+            font-weight: bold;
         }
 
-        .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+        #txtHint .product img {
+            max-width: 150px;
+            /* smaller image */
+            height: auto;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        /* Button group inside product - side by side */
+        #txtHint .product .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        /* Update Button */
+        #txtHint .product button.update-btn {
+            background-color: #00e676;
+            color: #000;
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #txtHint .product button.update-btn:hover {
+            background-color: #00c853;
+        }
+
+        /* Delete Button */
+        #txtHint .product button.delete-btn {
+            background-color: #ff1744;
+            color: #fff;
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #txtHint .product button.delete-btn:hover {
+            background-color: #d50000;
+        }
+/* Style for Manage Categories link */
+a.manage-categories {
+    display: inline-block;
+    font-size: 19px;
+    font-weight: 700;
+    color: #0b57d0;           /* Dark blue text */
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #e0e7ff; /* Light background for contrast */
+    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-top: 7px;
 }
 
-
-
+a.manage-categories:hover {
+    background-color: #0b57d0;
+    color: #fff;
+    text-decoration: none;
+}
     </style>
 </head>
 
 <body>
+
     <header>
         <div class="header-top">
-
-        <!-- LEFT SIDE: LOGO -->
-        <div class="logo-box">
-            <img src="Images/SmartX-logo-removebg-preview.png" class="admin-logo" alt="SmartX Logo">
+            <div class="logo-box"><img src="Images/SmartX-logo-removebg-preview.png" alt="Logo"></div>
+            <div class="title">
+                <h1>Smart <span class="x">X</span> Admin</h1>
+                <a href="manage_categories.php" class="manage-categories">Manage Categories</a>
+            </div>
+            <div class="icons"><a href="logout.php">Go to Home Page</a></div>
         </div>
-
-        <!-- CENTER: TITLE -->
-        <div class="title">
-            <h1>Smart <span class="x">X</span> Admin</h1>
-        </div>
-
-        <!-- RIGHT SIDE: ICONS -->
-        <div class="icons">
-            <a href="logout.php">
-                <i class="fa-solid fa-right-from-bracket" style="color: #d32f2f;"></i> Go to Home Page
-            </a>
-        </div>
-
-    </div>
     </header>
 
     <div class="form-container">
         <h2>Add Phone</h2>
 
-        <?php if (!empty($successMessage)): ?>
-            <div style="color: green;"><?php echo htmlspecialchars($successMessage); ?></div>
-        <?php elseif (!empty($error)): ?>
-            <div style="color: red;"><?php echo htmlspecialchars($error); ?></div>
-        <?php endif; ?>
+        <?php if (!empty($successMessage)) echo "<div style='color:green'>$successMessage</div>";
+        elseif (!empty($error)) echo "<div style='color:red'>$error</div>"; ?>
 
-        <form action="admin.php" method="POST" enctype="multipart/form-data">
-            <label for="phone-name">Phone Name:</label>
-            <input type="text" id="phone-name" name="phone-name" placeholder="Enter Phone Name" required>
-
-            <label for="phone-price">Phone Price:</label>
-            <input type="text" id="phone-price" name="phone-price" placeholder="Enter Phone Price" required>
-
-            <label for="phone-description">Phone Description:</label>
-            <input type="text" id="phone-description" name="phone-description" placeholder="Enter Phone Description" required>
-
-            <label for="phone-category">Phone Category:</label>
-            <select id="phone-category" name="phone-category" required>
+        <form id="addPhoneForm" action="admin.php" method="POST" enctype="multipart/form-data">
+            <label>Phone Name:</label><input type="text" name="phone-name" placeholder="Enter Phone Name" required>
+            <label>Phone Price:</label><input type="text" name="phone-price" placeholder="Enter Phone Price" required>
+            <label>Phone Description:</label><input type="text" name="phone-description" placeholder="Enter Phone Description" required>
+            <label>Phone Category:</label>
+            <select name="phone-category" required>
+                <option value="">Select Category</option>
                 <?php
-                $result = $conn->query("SELECT id, name FROM categories");
+                $result = $conn->query("SELECT id,name FROM categories");
                 while ($row = $result->fetch_assoc()) {
                     echo "<option value='{$row['id']}'>{$row['name']}</option>";
                 }
                 ?>
             </select>
-
-            <label for="phone-image">Phone Image:</label>
-            <input type="file" id="phone-image" name="phone-image" accept="image/*" required>
+            <label>Phone Image:</label><input type="file" name="phone-image" accept="image/*" required>
 
             <input class="btn-submit" type="submit" value="Add Phone">
-            <input class="btn-submit" type="reset" value="Reset">
-
-
-            <!-- Category Dropdown -->
-            <center>
-                <form>
-                    <select name="categories" onchange="showProduct(this.value)">
-                        <option value="">Select Category</option>
-                        <option value="-1">All Category</option>
-                        <?php
-                        $sql = "SELECT * FROM categories";
-                        $result = mysqli_query($conn, $sql);
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                        } ?>
-                    </select>
-                </form><br>
-
-                <div id="txtHint"><b>Product info will be listed here...</b></div>
-            </center>
-
-            <script>
-                function showProduct(categoryId) {
-                    if (categoryId == "") {
-                        document.getElementById("txtHint").innerHTML = "";
-                        return;
-                    }
-                    const xhttp = new XMLHttpRequest();
-                    xhttp.onload = function() {
-                        document.getElementById("txtHint").innerHTML = this.responseText;
-                    }
-                    xhttp.open("GET", "getProducts.php?q=" + categoryId, true);
-                    xhttp.send();
-                }
-            </script>
-
+            <input class="btn-reset" type="button" value="Reset" id="resetBtn">
         </form>
-    </div>
+
+        <hr>
+
+        <!-- Category selection -->
+        <center>
+            <select id="categorySelect">
+                <option value="">Select Category</option>
+                <option value="-1">All Category</option>
+                <?php
+                $sql = "SELECT * FROM categories";
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                }
+                ?>
+            </select>
+        </center>
+        <div id="txtHint"><b>Product info will be listed here...</b></div>
+
+        <script>
+            // Show products
+            function showProduct(categoryId) {
+                if (categoryId == "") {
+                    document.getElementById("txtHint").innerHTML = "<b>Product info will be listed here...</b>";
+                    return;
+                }
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    document.getElementById("txtHint").innerHTML = this.responseText;
+                }
+                xhttp.open("GET", "getProducts.php?q=" + categoryId, true);
+                xhttp.send();
+            }
+
+            document.getElementById("categorySelect").addEventListener('change', function() {
+                showProduct(this.value);
+            });
+
+            // Reset button
+            document.getElementById("resetBtn").addEventListener('click', function() {
+                document.getElementById("addPhoneForm").reset();
+                document.getElementById("categorySelect").selectedIndex = 0;
+                document.getElementById("txtHint").innerHTML = "<b>Product info will be listed here...</b>";
+            });
+        </script>
+
 </body>
 
 </html>

@@ -138,7 +138,7 @@ $result = mysqli_query($conn, $sql);
                         echo "<div class='cont'  data-product-id='" . $row['id'] . "'>";
                         echo "<h3> " . $row['product_name'] . " </h3>";
                         echo "<img src='" . $row['image'] . "'>";
-                        echo "<p>" . $row['description'] . "</p>";
+                        echo html_entity_decode($row['description']);
                         echo "<h6>" . $row['price'] . " $</h6>";
                         echo "<button class='buy-1'>Add To Cart</button>";
                         echo "</div>";

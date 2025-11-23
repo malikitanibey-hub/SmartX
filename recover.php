@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: change_password.php");
         exit;
     } else {
-         $_SESSION['recover_error'] = "Email or secret code not found!";
-        header("Location: recover.php"); 
+        $_SESSION['recover_error'] = "Email or secret code not found!";
+        header("Location: recover.php");
         exit;
     }
 }
@@ -57,9 +57,9 @@ if (isset($_SESSION['recover_error'])) {
             </div>
 
             <div class="input-group">
-        <i class="fa-solid fa-key"></i>
-        <input type="text" name="passcode" placeholder="Enter your secret code" required>
-    </div>
+                <i class="fa-solid fa-key"></i>
+                <input type="text" name="passcode" placeholder="Enter your secret code" required>
+            </div>
 
             <input type="submit" class="btn" value="Recover Password">
         </form>

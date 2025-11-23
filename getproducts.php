@@ -14,25 +14,33 @@ $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
+
         echo "<div class='product'>";
-        echo "<h3>" . htmlspecialchars($row['name']) . "</h3>";
-        echo "<p>Price: " . htmlspecialchars($row['price']) . "$</p>";
-        echo "<p>Description: " . htmlspecialchars($row['description']) . "</p>";
+
+      echo "<h3>" . htmlspecialchars($row['name']) . "</h3>";
+
+echo "<p><strong>Price:</strong> " . htmlspecialchars($row['price']) . "$</p>";
+
+echo "<p><strong>Description:</strong><br>" . html_entity_decode($row['description']) . "</p>";
+                               
         echo "<img src='" . htmlspecialchars($row['image']) . "' alt='Image'>";
 
-        // Delete Button
-        echo "<form action='admin.php' method='GET' style='display:inline-block'>
-                <input type='hidden' name='delete_id' value='" . $row['id'] . "'>
-                <button class='btn-submit' type='submit'>Delete</button>
-              </form>";
+        // BUTTON GROUP (side-by-side)
+        echo "<div class='button-group'>
+                <form action='admin.php' method='GET'>
+                    <input type='hidden' name='delete_id' value='" . $row['id'] . "'>
+                    <button class='delete-btn' type='submit'>Delete</button>
+                </form>
 
-        // Update Button
-        echo "<form action='update.php' method='GET' style='display:inline-block'>
-                <input type='hidden' name='id' value='" . $row['id'] . "'>
-                <button class='btn-submit' type='submit'>Update</button>
-              </form>";
+                <form action='update.php' method='GET'>
+                    <input type='hidden' name='id' value='" . $row['id'] . "'>
+                    <button class='update-btn' type='submit'>Update</button>
+                </form>
+              </div>";
+
         echo "</div>";
     }
 } else {
     echo "<p>No products found.</p>";
 }
+?>
