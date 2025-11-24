@@ -10,10 +10,8 @@ $fname = isset($_SESSION['fname']) ? $_SESSION['fname'] : "";
 $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
 
 
-// Check if a category is selected
 $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
 
-// Get category name if category_id is set
 $category_name = "";
 if ($category_id > 0) {
     $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id");
@@ -21,10 +19,7 @@ if ($category_id > 0) {
     $category_name = $cat_row['name'] ?? "Category";
 }
 
-// Get filter option if any
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'Default';
-
-// If a category is selected, fetch products for that category
 if ($category_id > 0) {
     $sql = "SELECT products.id, products.name AS product_name, products.image, products.description, products.price, categories.name AS category_name
             FROM products
@@ -67,6 +62,7 @@ if ($category_id > 0) {
 </head>
 
 <body>
+    
     <header>
         <div class="header">
             <div class="header-Top">
@@ -121,7 +117,6 @@ if ($category_id > 0) {
         </div>
 
         <?php if ($category_id == 0) : ?>
-            <!-- Show categories if no category selected -->
             <div class="gallary">
                 <?php
                 $categories = mysqli_query($conn, "SELECT * FROM categories");
@@ -136,12 +131,10 @@ if ($category_id > 0) {
                 ?>
             </div>
         <?php else : ?>
-            <!-- Show products of the selected category -->
             <a href="products.php" style="display: inline-block; padding: 8px 12px; background-color: #f0f0f0; color: #000; border-radius: 5px; text-decoration: none; font-size: 16px; margin-bottom: 20px;">
                 &#8592; Back
             </a>
 
-            <!-- Filter dropdown -->
             <div class="filter-condition">
                 <form method="get" action="products.php">
                     <input type="hidden" name="category" value="<?php echo $category_id; ?>">
@@ -155,7 +148,6 @@ if ($category_id > 0) {
                 </form>
             </div>
 
-            <!-- Show products of the selected category -->
             <div class="gallary">
                 <?php
                 if ($result && mysqli_num_rows($result) > 0) {

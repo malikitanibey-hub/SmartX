@@ -101,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>SmartX Admin</title>
     <style>
-        /* ===== BODY & BACKGROUND ===== */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -114,7 +113,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             color: #333;
         }
 
-        /* ===== HEADER / NAVBAR ===== */
         header {
             background: rgba(255, 255, 255, 0.9);
             padding: 10px 25px;
@@ -135,7 +133,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             font-size: 32px;
             font-weight: 700;
             color: #0A3D62;
-            /* Dark blue */
         }
 
         h1 .x {
@@ -153,6 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             color: #333;
             font-weight: 700;
             text-shadow: 1px 1px 2px #ddd;
+                        margin-left: 65px;
         }
 
         .icons a {
@@ -169,7 +167,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             background: #d2e3fc;
         }
 
-        /* ===== FORM CONTAINER ===== */
         .form-container {
             max-width: 600px;
             margin: 40px auto;
@@ -241,7 +238,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             background-color: #e6006e;
         }
 
-        /* ===== PRODUCT CARDS ===== */
         #txtHint .product {
             background: rgba(255, 255, 255, 0.85);
             padding: 15px;
@@ -251,11 +247,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            /* Info stacked vertically */
             align-items: center;
-            /* center content inside the card */
             text-align: center;
-            /* text inside centered */
         }
 
         #txtHint .product-info {
@@ -263,7 +256,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             flex-direction: column;
             gap: 5px;
             align-items: center;
-            /* center the text */
         }
 
         #txtHint .product-info span {
@@ -272,13 +264,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
 
         #txtHint .product img {
             max-width: 150px;
-            /* smaller image */
             height: auto;
             border-radius: 6px;
             margin: 10px 0;
         }
 
-        /* Button group inside product - side by side */
         #txtHint .product .button-group {
             display: flex;
             gap: 10px;
@@ -286,7 +276,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             justify-content: center;
         }
 
-        /* Update Button */
         #txtHint .product button.update-btn {
             background-color: #00e676;
             color: #000;
@@ -302,7 +291,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             background-color: #00c853;
         }
 
-        /* Delete Button */
         #txtHint .product button.delete-btn {
             background-color: #ff1744;
             color: #fff;
@@ -317,26 +305,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
         #txtHint .product button.delete-btn:hover {
             background-color: #d50000;
         }
-/* Style for Manage Categories link */
-a.manage-categories {
-    display: inline-block;
-    font-size: 19px;
-    font-weight: 700;
-    color: #0b57d0;           /* Dark blue text */
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    background-color: #e0e7ff; /* Light background for contrast */
-    box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin-top: 7px;
-}
 
-a.manage-categories:hover {
-    background-color: #0b57d0;
-    color: #fff;
-    text-decoration: none;
-}
+        a.manage-categories {
+            display: inline-block;
+            font-size: 19px;
+            font-weight: 700;
+            color: #0b57d0;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #e0e7ff;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            margin-top: 7px;
+        }
+        a.manage-categories:hover {
+            background-color: #0b57d0;
+            color: #fff;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -346,15 +333,18 @@ a.manage-categories:hover {
         <div class="header-top">
             <div class="logo-box"><img src="Images/SmartX-logo-removebg-preview.png" alt="Logo"></div>
             <div class="title">
+                
                 <h1>Smart <span class="x">X</span> Admin</h1>
+                <a href="manage_users.php" class="manage-categories">Manage Users</a>
                 <a href="manage_categories.php" class="manage-categories">Manage Categories</a>
+                
             </div>
             <div class="icons"><a href="logout.php">Go to Home Page</a></div>
         </div>
     </header>
 
     <div class="form-container">
-        <h2>Add Phone</h2>
+        <h2>Add A New Device</h2>
 
         <?php if (!empty($successMessage)) echo "<div style='color:green'>$successMessage</div>";
         elseif (!empty($error)) echo "<div style='color:red'>$error</div>"; ?>
@@ -381,7 +371,6 @@ a.manage-categories:hover {
 
         <hr>
 
-        <!-- Category selection -->
         <center>
             <select id="categorySelect">
                 <option value="">Select Category</option>

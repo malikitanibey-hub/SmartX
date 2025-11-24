@@ -1,8 +1,8 @@
 <?php
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 require 'connect.php';
 session_start();
 
-// Redirect if not logged in
 if (!isset($_SESSION['admin']) || !isset($_SESSION['tab_token'])) {
     header("Location: admin_login.php");
     exit;
@@ -15,7 +15,7 @@ $success = "";
 if (isset($_GET['delete_id'])) {
     $id = intval($_GET['delete_id']);
 
-    // Don’t delete if category has products
+
     $check = $conn->query("SELECT * FROM products WHERE category_id = $id");
     if ($check->num_rows > 0) {
         $error = "❌ Cannot delete! Category has products.";
@@ -33,7 +33,6 @@ if (isset($_POST['add_name'])) {
     if (empty($name) || empty($description)) {
         $error = "Name and description cannot be empty!";
     } else {
-        // Handle image upload
         if (isset($_FILES['add_image']) && $_FILES['add_image']['error'] == 0) {
             $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
             if (!in_array($_FILES['add_image']['type'], $allowedTypes)) {
@@ -55,11 +54,21 @@ if (isset($_POST['add_name'])) {
         if (empty($error)) {
             $stmt = $conn->prepare("INSERT INTO categories (name, description, image) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $name, $description, $imagePath);
-            if ($stmt->execute()) $success = "Category added ✔️";
-            else $error = "Error adding category!";
+            try {
+                if ($stmt->execute()) {
+                    $success = "Category added ✔️";
+                }
+            } catch (mysqli_sql_exception $e) {
+                if ($e->getCode() == 1062) {
+                    $error = "❌ This category name is already taken!";
+                } else {
+                    $error = "Database error: " . $e->getMessage();
+                }
+            }
         }
     }
 }
+
 
 /* ---------- UPDATE CATEGORY ---------- */
 if (isset($_POST['update_id'])) {
@@ -70,7 +79,6 @@ if (isset($_POST['update_id'])) {
     if (empty($name) || empty($description)) {
         $error = "Name and description cannot be empty!";
     } else {
-        // Optional image update
         $imagePath = null;
         if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] == 0) {
             $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -108,7 +116,7 @@ if (isset($_POST['update_id'])) {
 <html>
 
 <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Manage Categories</title>
     <style>
         body {
@@ -138,7 +146,7 @@ if (isset($_POST['update_id'])) {
         button,
         textarea {
             width: 100%;
-            padding: 10px;
+            padding: 9px;
             margin: 8px 0;
             border-radius: 5px;
             border: 1px solid #ccc;

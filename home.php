@@ -79,7 +79,9 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
         </div>
     </div>
 
-
+<footer>
+        <p>Copyright 2024 &copy; <b>SmartX Lebanon</b></p>
+    </footer>
 
     <script src="addtoCart.js"></script>
     <script src="script.js"></script>
