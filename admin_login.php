@@ -5,7 +5,7 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = md5($_POST['password']); 
+    $password = md5($_POST['password']);
 
     $query = "SELECT * FROM admin WHERE username='$username' AND password='$password'";
     $result = mysqli_query($conn, $query);
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Admin Login</title>
     <link rel="stylesheet" href="admin_style.css">
-        <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
     <style>
         body {

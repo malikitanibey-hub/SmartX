@@ -14,7 +14,7 @@ $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
 
 $category_name = "";
 if ($category_id > 0) {
-    $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id");
+    $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id AND is_deleted = 0");
     $cat_row = mysqli_fetch_assoc($cat_result);
     $category_name = $cat_row['name'] ?? "Category";
 }
@@ -62,7 +62,7 @@ if ($category_id > 0) {
 </head>
 
 <body>
-    
+
     <header>
         <div class="header">
             <div class="header-Top">
@@ -119,7 +119,7 @@ if ($category_id > 0) {
         <?php if ($category_id == 0) : ?>
             <div class="gallary">
                 <?php
-                $categories = mysqli_query($conn, "SELECT * FROM categories");
+                $categories = $conn->query("SELECT * FROM categories WHERE is_hidden = 0 ORDER BY id ASC");
                 while ($row = mysqli_fetch_assoc($categories)) {
                     echo "<div class='cont'>";
                     echo "<h3>" . $row['name'] . "</h3>";

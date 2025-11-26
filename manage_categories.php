@@ -7,23 +7,42 @@ if (!isset($_SESSION['admin']) || !isset($_SESSION['tab_token'])) {
     header("Location: admin_login.php");
     exit;
 }
-
 $error = "";
 $success = "";
 
-/* ---------- DELETE CATEGORY ---------- */
+/* ---------------- Soft Delete ----------------*/
 if (isset($_GET['delete_id'])) {
-    $id = intval($_GET['delete_id']);
-
-
-    $check = $conn->query("SELECT * FROM products WHERE category_id = $id");
-    if ($check->num_rows > 0) {
-        $error = "❌ Cannot delete! Category has products.";
+    $delete_id = intval($_GET['delete_id']);
+    $sql = "UPDATE categories SET is_hidden = 1 WHERE id = $delete_id";
+    if (mysqli_query($conn, $sql)) {
+        $success = "Category removed from page successfully ✔️";
     } else {
-        $conn->query("DELETE FROM categories WHERE id = $id");
-        $success = "Category deleted ✔️";
+        $error = " Error removing category ❌";
     }
 }
+
+if (isset($_POST['toggle_id'])) {
+    $toggle_id = intval($_POST['toggle_id']);
+
+    $result = $conn->query("SELECT is_hidden FROM categories WHERE id = $toggle_id");
+    if ($result && $row = $result->fetch_assoc()) {
+        $new_status = $row['is_hidden'] == 0 ? 1 : 0;
+
+        $sql = "UPDATE categories SET is_hidden = $new_status WHERE id = $toggle_id";
+        if (mysqli_query($conn, $sql)) {
+            $success = $new_status ? "Category hidden ✔️" : "Category restored ✔️";
+        } else {
+            $error = "Error updating category status ❌";
+        }
+    } else {
+        $error = "Category not found ❌";
+    }
+    header("Location: manage_categories.php");
+    exit;
+}
+
+
+
 
 /* ---------- ADD CATEGORY ---------- */
 if (isset($_POST['add_name'])) {
@@ -56,7 +75,9 @@ if (isset($_POST['add_name'])) {
             $stmt->bind_param("sss", $name, $description, $imagePath);
             try {
                 if ($stmt->execute()) {
-                    $success = "Category added ✔️";
+                    $msg = urlencode("Category added ✔️");
+                    header("Location: manage_categories.php?success=$msg");
+                    exit;
                 }
             } catch (mysqli_sql_exception $e) {
                 if ($e->getCode() == 1062) {
@@ -142,6 +163,10 @@ if (isset($_POST['update_id'])) {
             text-align: center;
         }
 
+        h3 {
+            text-align: center;
+        }
+
         input,
         button,
         textarea {
@@ -219,8 +244,13 @@ if (isset($_POST['update_id'])) {
             <a href="logout.php" style="flex:1;text-align:center;background:#00c853;padding:10px;color:white;border-radius:6px;text-decoration:none;font-weight:bold;">Home Page</a>
         </div>
 
-        <?php if ($error) echo "<p style='color:red'>$error</p>"; ?>
-        <?php if ($success) echo "<p style='color:green'>$success</p>"; ?>
+        <?php
+        if (isset($_GET['success'])) {
+            echo "<p style='color:green'>" . htmlspecialchars($_GET['success']) . "</p>";
+        }
+        if ($error) echo "<p style='color:red'>$error</p>";
+        ?>
+
 
         <h3>Add Category</h3>
         <form method="POST" enctype="multipart/form-data">
@@ -243,7 +273,7 @@ if (isset($_POST['update_id'])) {
                 <th>Delete</th>
             </tr>
             <?php
-            $categories = $conn->query("SELECT * FROM categories ORDER BY id DESC");
+            $categories = $conn->query("SELECT * FROM categories ORDER BY id ASC");
             while ($row = $categories->fetch_assoc()) {
                 echo "<tr>
                 <td>{$row['id']}</td>
@@ -260,10 +290,11 @@ if (isset($_POST['update_id'])) {
                     </form>
                 </td>
                 <td>
-                    <form method='GET'>
-                        <input type='hidden' name='delete_id' value='{$row['id']}'>
-                        <button class='delete-btn'>Delete</button>
-                    </form>
+
+                    <form method='POST'>
+                <input type='hidden' name='toggle_id' value='{$row['id']}'>
+                <button class='delete-btn'>" . ($row['is_hidden'] ? "Restore" : "Hide") . "</button>
+            </form>
                 </td>
             </tr>";
             }

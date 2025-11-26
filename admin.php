@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             color: #333;
             font-weight: 700;
             text-shadow: 1px 1px 2px #ddd;
-                        margin-left: 65px;
+            margin-left: 65px;
         }
 
         .icons a {
@@ -319,6 +319,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             transition: 0.3s;
             margin-top: 7px;
         }
+
         a.manage-categories:hover {
             background-color: #0b57d0;
             color: #fff;
@@ -333,11 +334,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
         <div class="header-top">
             <div class="logo-box"><img src="Images/SmartX-logo-removebg-preview.png" alt="Logo"></div>
             <div class="title">
-                
+
                 <h1>Smart <span class="x">X</span> Admin</h1>
                 <a href="manage_users.php" class="manage-categories">Manage Users</a>
                 <a href="manage_categories.php" class="manage-categories">Manage Categories</a>
-                
+
             </div>
             <div class="icons"><a href="logout.php">Go to Home Page</a></div>
         </div>
