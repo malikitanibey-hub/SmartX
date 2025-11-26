@@ -17,11 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($newPass !== $confirmPass) {
         $error = "Passwords do not match!";
     } else {
-        $hashedPass = md5($newPass);
+        $hashedPass = password_hash($newPass, PASSWORD_DEFAULT);
         $email = $_SESSION['recover_email'];
 
         $stmt = $conn->prepare("UPDATE users SET password=? WHERE email=?");
         $stmt->bind_param("ss", $hashedPass, $email);
+
         if ($stmt->execute()) {
             unset($_SESSION['recover_email']);
             $_SESSION['success'] = "Password changed successfully. Please Sign In.";
@@ -33,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
