@@ -84,6 +84,13 @@ $result = mysqli_query($conn, "SELECT * FROM users");
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Manage Users</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+
     <title>Manage Users</title>
     <style>
         body {
@@ -334,6 +341,38 @@ $result = mysqli_query($conn, "SELECT * FROM users");
         .popup .close-btn:hover {
             background: #b0001a;
         }
+
+        .btn-edit,
+        .btn-delete {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .btn-edit {
+            background-color: #0b57d0;
+        }
+
+        .btn-edit:hover {
+            background-color: #094c9e;
+        }
+
+        .btn-delete {
+            background-color: #e60023;
+            text-decoration: none;
+        }
+
+        .btn-delete:hover {
+            background-color: #b0001a;
+        }
+
+        .btn-edit i,
+        .btn-delete i {
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -391,15 +430,19 @@ $result = mysqli_query($conn, "SELECT * FROM users");
                 <td>********</td>
                 <td><?= $row['passcode'] ?></td>
                 <td>
-                    <button onclick="openEdit(
-                        '<?= $row['id'] ?>',
-                        '<?= $row['firstName'] ?>',
-                        '<?= $row['lastName'] ?>',
-                        '<?= $row['email'] ?>',
-                        '',
-                        '<?= $row['passcode'] ?>'
-                    )">Edit</button>
-                    <a class="btn-delete" href="manage_users.php?delete_id=<?= $row['id'] ?>">Delete</a>
+                    <button class="btn-edit" onclick="openEdit(
+                           '<?= $row['id'] ?>',
+                           '<?= $row['firstName'] ?>',
+                           '<?= $row['lastName'] ?>',
+                           '<?= $row['email'] ?>',
+                           '',
+                           '<?= $row['passcode'] ?>'
+                           )"><i class="fa-solid fa-pen"></i></button>
+
+                    <a class="btn-delete" href="manage_users.php?delete_id=<?= $row['id'] ?>">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+
                 </td>
             </tr>
         <?php endwhile; ?>

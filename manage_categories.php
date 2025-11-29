@@ -138,6 +138,7 @@ if (isset($_POST['update_id'])) {
 
 <head>
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Manage Categories</title>
     <style>
         body {
@@ -200,19 +201,7 @@ if (isset($_POST['update_id'])) {
             border-bottom: 1px solid #ccc;
         }
 
-        .delete-btn {
-            background: #ff1744;
-            color: #fff;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-            margin-top: 190px;
-            margin-left: 10px;
-        }
 
-        .delete-btn:hover {
-            background: #d50000;
-        }
 
         .update-btn {
             background: #00c853;
@@ -231,6 +220,20 @@ if (isset($_POST['update_id'])) {
         .logo-box img {
             width: 150px;
             cursor: pointer;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #ff1744;
+            margin-top: 190px;
+            margin-left: 10px;
+        }
+
+        .toggle-btn:hover {
+            color: #d50000;
         }
     </style>
 </head>
@@ -270,7 +273,7 @@ if (isset($_POST['update_id'])) {
                 <th>Description</th>
                 <th>Image</th>
                 <th>Update</th>
-                <th>Delete</th>
+                <th>Hide</th>
             </tr>
             <?php
             $categories = $conn->query("SELECT * FROM categories ORDER BY id ASC");
@@ -292,9 +295,15 @@ if (isset($_POST['update_id'])) {
                 <td>
 
                     <form method='POST'>
-                <input type='hidden' name='toggle_id' value='{$row['id']}'>
-                <button class='delete-btn'>" . ($row['is_hidden'] ? "Restore" : "Hide") . "</button>
-            </form>
+    <input type='hidden' name='toggle_id' value='{$row['id']}'>
+    <button class='toggle-btn'>
+        " . ($row['is_hidden']
+                    ? "<i class='fa-solid fa-eye'></i>"
+                    : "<i class='fa-solid fa-eye-slash'></i>"
+                ) . "
+    </button>
+</form>
+
                 </td>
             </tr>";
             }

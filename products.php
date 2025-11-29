@@ -14,7 +14,7 @@ $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
 
 $category_name = "";
 if ($category_id > 0) {
-    $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id AND is_deleted = 0");
+    $cat_result = mysqli_query($conn, "SELECT name FROM categories WHERE id = $category_id AND is_hidden = 0");
     $cat_row = mysqli_fetch_assoc($cat_result);
     $category_name = $cat_row['name'] ?? "Category";
 }

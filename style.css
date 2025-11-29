@@ -199,12 +199,12 @@ footer p {
 }
 
 footer p b {
-    color: #0b57d0; /* Your theme color (SmartX blue) */
+    color: #0b57d0; 
     font-weight: 600;
 }
 
 footer:hover {
-    background: #222; /* Slight hover effect */
+    background: #222; 
     transition: 0.3s ease-in-out;
 }
 .map {
@@ -246,68 +246,7 @@ footer:hover {
   border-top: solid 2px #eff1f4;
 }
 
-/*About Us */
-.h-bottom {
-  text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: #4b3838;
-}
-.our-mission {
-  background-color: #ccc;
-  text-align: center;
-  display: flex;
-}
-.mission {
-  font-size: x-large;
-  padding: 50px;
-}
-.text-mission strong {
-  color: #485449;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.text-mission p {
-  color: #485449;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
-.our-product {
-  background-color: #ccc;
-  text-align: center;
-  display: flex;
-}
-.product {
-  font-size: x-large;
-  padding: 50px;
-}
-.text-product strong {
-  color: #485449;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.text-product p {
-  color: #485449;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.our-vision {
-  background-color: #ccc;
-  text-align: center;
-  display: flex;
-}
-.vision {
-  font-size: x-large;
-  padding: 50px;
-}
-.text-vision strong {
-  color: #485449;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-.text-vision p {
-  color: #485449;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 /* Products*/
 
