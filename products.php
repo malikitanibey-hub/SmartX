@@ -65,9 +65,10 @@ if ($category_id > 0) {
 
     <header>
         <div class="header">
-            <div class="header-Top">
-                <div class="title">
-                    <h1>Smart <span class="x">X</span></h1>
+            <div class="title">
+                    <img src="Images/SmartX-logo-removebg-preview-crop.png"
+                        alt="SmartX Logo"
+                        style="height:70px; width:auto;">
                 </div>
                 <div class="icons">
                     <span style="font-weight:bold; margin-right:20px;">
@@ -83,7 +84,7 @@ if ($category_id > 0) {
                 <nav class="navbar">
                     <ul>
                         <li><a href="home.php">Home</a></li>
-                        <li><a href="products.php">Products</a></li>
+                        <li><a href="products.php" class="active">Products</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
                         <li><a href="aboutus.php">About Us</a></li>
                     </ul>

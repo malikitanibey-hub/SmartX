@@ -33,11 +33,76 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
             }
         }
 
+        .header-Top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #e6e6e6;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-Top .title {
+            flex: 0;
+        }
+
+        .header-Top .icons {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .header-Top .icons span {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .header-Top .icons i {
+            font-size: 22px;
+            transition: 0.3s ease;
+        }
+
+        .header-Top .icons i:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .header-Top {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .header-Top .icons {
+                justify-content: center !important;
+                flex: unset;
+            }
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .navbar ul li a:hover,
+        .navbar ul li a.active {
+            background: #ff2b4f;
+        }
+
         .h-bottom {
             text-align: center;
             font-family: Georgia, serif;
             color: #333;
-            margin: 50px 0;
+            margin: 55px 0;
             animation: fadeUp 1s ease forwards;
         }
 
@@ -60,19 +125,19 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
             align-items: center;
             gap: 40px;
             animation: fadeUp 1.1s ease forwards;
-            transition: 0.3s ease;
+            transition: 0.35s ease;
         }
 
         .section-box:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.18);
+            transform: translateY(-6px);
+            box-shadow: 0px 12px 26px rgba(0, 0, 0, 0.22);
         }
 
         .section-image {
             flex: 1;
             border-radius: 15px;
             overflow: hidden;
-            max-width: 400px;
+            max-width: 420px;
         }
 
         .section-image img {
@@ -96,6 +161,7 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
 
         .section-text h4 i {
             color: #ff2b4f;
+            font-size: 26px;
         }
 
         .section-text strong {
@@ -107,12 +173,22 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
         .section-text p {
             font-family: Arial, sans-serif;
             color: #485449;
-            margin-top: 10px;
+            margin-top: 12px;
             line-height: 1.7;
             font-size: 15px;
         }
 
         @media (max-width: 768px) {
+            .header-Top {
+                flex-direction: column;
+                gap: 10px;
+                padding: 20px;
+            }
+
+            .navbar ul {
+                gap: 20px;
+            }
+
             .section-box {
                 flex-direction: column;
                 text-align: center;
@@ -121,18 +197,25 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
             .section-image {
                 max-width: 100%;
             }
+
+            .header-Top span {
+                margin-right: 0 !important;
+            }
         }
     </style>
 </head>
 
-<body>
+<body class="about-page">
 
     <header>
         <div class="header">
             <div class="header-Top">
                 <div class="title">
-                    <h1>Smart <span class="x">X</span></h1>
+                    <img src="Images/SmartX-logo-removebg-preview-crop.png"
+                        alt="SmartX Logo"
+                        style="height:70px; width:auto;">
                 </div>
+
                 <div class="icons">
                     <span style="font-weight:bold; margin-right:20px;">
                         Welcome, <?php echo htmlspecialchars($fname . ' ' . $lname); ?>
