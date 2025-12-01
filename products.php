@@ -65,21 +65,24 @@ if ($category_id > 0) {
 
     <header>
         <div class="header">
-            <div class="title">
+            <div class="header-Top">
+                <div class="title">
                     <img src="Images/SmartX-logo-removebg-preview-crop.png"
                         alt="SmartX Logo"
                         style="height:70px; width:auto;">
                 </div>
+
                 <div class="icons">
                     <span style="font-weight:bold; margin-right:20px;">
                         Welcome, <?php echo htmlspecialchars($fname . ' ' . $lname); ?>
                     </span>
                     <a href="index.php"><i class="fa-solid fa-right-to-bracket fa-beat"></i></a>
-                    <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://twitter.com"><i class="fa-brands fa-x-twitter" style="color: black;"></i></a>
                     <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://instagram.com"><i class="fa-brands fa-instagram" style="color: #da1bc0;"></i></a>
                 </div>
             </div>
+
             <div class="header-bottom">
                 <nav class="navbar">
                     <ul>
@@ -92,6 +95,8 @@ if ($category_id > 0) {
             </div>
         </div>
     </header>
+
+
 
     <main>
         <div class="cart-container">
@@ -118,54 +123,68 @@ if ($category_id > 0) {
         </div>
 
         <?php if ($category_id == 0) : ?>
-            <div class="gallary">
-                <?php
-                $categories = $conn->query("SELECT * FROM categories WHERE is_hidden = 0 ORDER BY id ASC");
-                while ($row = mysqli_fetch_assoc($categories)) {
-                    echo "<div class='cont'>";
-                    echo "<h3>" . $row['name'] . "</h3>";
-                    echo "<img src='" . $row['image'] . "'>";
-                    echo "<p>Enter to see all products</p>";
-                    echo "<a href='products.php?category=" . $row['id'] . "'><button class='buy-1'>Click Here</button></a>";
-                    echo "</div>";
-                }
-                ?>
-            </div>
-        <?php else : ?>
-            <a href="products.php" style="display: inline-block; padding: 8px 12px; background-color: #f0f0f0; color: #000; border-radius: 5px; text-decoration: none; font-size: 16px; margin-bottom: 20px;">
-                &#8592; Back
-            </a>
 
-            <div class="filter-condition">
-                <form method="get" action="products.php">
-                    <input type="hidden" name="category" value="<?php echo $category_id; ?>">
-                    <select name="filter" onchange="this.form.submit()">
-                        <option value="Default" <?php if ($filter == 'Default') echo 'selected'; ?>>Default</option>
-                        <option value="LowToHigh" <?php if ($filter == 'LowToHigh') echo 'selected'; ?>>Price: Low to High</option>
-                        <option value="HighToLow" <?php if ($filter == 'HighToLow') echo 'selected'; ?>>Price: High to Low</option>
-                        <option value="AtoZ" <?php if ($filter == 'AtoZ') echo 'selected'; ?>>Name: A to Z</option>
-                        <option value="ZtoA" <?php if ($filter == 'ZtoA') echo 'selected'; ?>>Name: Z to A</option>
-                    </select>
-                </form>
-            </div>
-
-            <div class="gallary">
-                <?php
-                if ($result && mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<div class='cont' data-product-id='" . $row['id'] . "'>";
-                        echo "<h3>" . $row['product_name'] . "</h3>";
-                        echo "<img src='" . $row['image'] . "'>";
-                        echo "<p>" . html_entity_decode($row['description']) . "</p>";
-                        echo "<h6>" . $row['price'] . " $</h6>";
-                        echo "<button class='buy-1'>Add To Cart</button>";
+            <div class="products-wrapper">
+                <div class="gallary">
+                    <?php
+                    $categories = $conn->query("SELECT * FROM categories WHERE is_hidden = 0 ORDER BY id ASC");
+                    while ($row = mysqli_fetch_assoc($categories)) {
+                        echo "<div class='cont product-cont'>";
+                        echo "<h3>" . $row['name'] . "</h3>";
+                        echo "<img src='" . $row['image'] . "'> <br>";
+                        echo "<p>Enter to see all products</p>";
+                        echo "<a href='products.php?category=" . $row['id'] . "'>
+                  <button class='product-cont-btn'>Click Here</button></a>";
                         echo "</div>";
                     }
-                } else {
-                    echo "<p>No products found in this category.</p>";
-                }
-                ?>
+                    ?>
+                </div>
             </div>
+
+        <?php else : ?>
+
+
+            <div class="products-top-controls">
+                <!-- Back Button -->
+                <a href="products.php" class="back-btn" title="Back to categories">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </a>
+
+                <!-- Filter Dropdown -->
+                <div class="filter-condition">
+                    <form method="get" action="products.php">
+                        <input type="hidden" name="category" value="<?php echo $category_id; ?>">
+                        <select name="filter" onchange="this.form.submit()">
+                            <option value="Default" <?php if ($filter == 'Default') echo 'selected'; ?>>Default</option>
+                            <option value="LowToHigh" <?php if ($filter == 'LowToHigh') echo 'selected'; ?>>Price: Low to High</option>
+                            <option value="HighToLow" <?php if ($filter == 'HighToLow') echo 'selected'; ?>>Price: High to Low</option>
+                            <option value="AtoZ" <?php if ($filter == 'AtoZ') echo 'selected'; ?>>Name: A to Z</option>
+                            <option value="ZtoA" <?php if ($filter == 'ZtoA') echo 'selected'; ?>>Name: Z to A</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div class="products-wrapper">
+                <div class="gallary products">
+                    <?php
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<div class='cont product-cont' data-product-id='" . $row['id'] . "'>";
+                            echo "<h3>" . $row['product_name'] . "</h3>";
+                            echo "<img src='" . $row['image'] . "'> <br>";
+                            echo "<p>" . html_entity_decode($row['description']) . "</p>";
+                            echo "<h6>" . $row['price'] . " $</h6>";
+                            echo "<button class='product-cont-btn'>Add To Cart</button>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>No products found in this category.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+
         <?php endif; ?>
 
     </main>

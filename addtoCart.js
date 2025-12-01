@@ -25,7 +25,7 @@ closeShopping.addEventListener("click", () => {
   body.classList.remove("active");
 });
 
-document.querySelectorAll(".buy-1").forEach((button, index) => {
+document.querySelectorAll(".product-cont-btn").forEach((button, index) => {
   button.addEventListener("click", () => {
     addToCart(index);
   });

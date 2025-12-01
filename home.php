@@ -89,6 +89,9 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
         <div class="slide fade">
             <img src="Images/Ipads/ipadsimage.jpg" alt="Slide 5">
         </div>
+        <div class="slide fade">
+            <img src="Images/ed5f4f3bc904-wireless-heaphones-lead.jpg" alt="Slide 6">
+        </div>
 
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -101,6 +104,7 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
         <span class="dot" onclick="currentSlide(3)"></span>
         <span class="dot" onclick="currentSlide(4)"></span>
         <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
     </div>
 
     <div class="home-section ">
@@ -109,17 +113,17 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
 
         <div class="home-cards">
             <div class="card">
-                <img src="Images/iPhone.webp" alt="iPhone">
+                <img src="Images/apple-iphone-14-vs-samsung-galaxy-s22-whats-the-ultimate-fla_6enk.1920.webp" alt="iPhone">
                 <h3>Latest Phones</h3>
                 <p>Check out the newest phones with amazing features.</p>
             </div>
             <div class="card">
-                <img src="Images/Ipads/ipadsimage.jpg" alt="Laptop">
+                <img src="Images/best-tablets-1-november-2024.avif" alt="Laptop">
                 <h3>Laptops & Tablets</h3>
                 <p>High performance devices for work, study, and gaming.</p>
             </div>
             <div class="card">
-                <img src="Images/headphone.webp" alt="Headphones">
+                <img src="Images/Types-of-headphones-and-earbuds.jpg" alt="Headphones">
                 <h3>Accessories</h3>
                 <p>Headphones, smartwatches, and all essential accessories.</p>
             </div>
