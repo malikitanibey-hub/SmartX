@@ -171,10 +171,10 @@ if ($category_id > 0) {
                     if ($result && mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<div class='cont product-cont' data-product-id='" . $row['id'] . "'>";
-                            echo "<h3>" . $row['product_name'] . "</h3>";
+                            echo "<h3>" . $row['product_name'] . "</h3><br>";
                             echo "<img src='" . $row['image'] . "'> <br>";
                             echo "<p>" . html_entity_decode($row['description']) . "</p>";
-                            echo "<h6>" . $row['price'] . " $</h6>";
+                            echo "<h6>" . $row['price'] . "$</h6>";
                             echo "<button class='product-cont-btn'>Add To Cart</button>";
                             echo "</div>";
                         }

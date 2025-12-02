@@ -74,8 +74,11 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-
 $result = mysqli_query($conn, "SELECT * FROM users");
+
+// Get Contact Messages
+$msgQuery = "SELECT * FROM contact_messages ORDER BY id ASC";
+$msgResult = mysqli_query($conn, $msgQuery);
 ?>
 
 <!DOCTYPE html>
@@ -373,6 +376,52 @@ $result = mysqli_query($conn, "SELECT * FROM users");
         .btn-delete i {
             font-size: 16px;
         }
+
+
+.tab-container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tab-buttons button.active {
+    background: #ff2b4f;
+}
+
+.tab-content {
+    display: none;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #333;
+    color: white;
+}
+
     </style>
 </head>
 
@@ -384,6 +433,7 @@ $result = mysqli_query($conn, "SELECT * FROM users");
         <div class="navbar-center">
             <h1 class="page-title">Manage Users</h1>
         </div>
+        
         <div class="navbar-right">
             <a class="back-btn" href="admin.php">⬅ Admin Product</a>
             <a class="back-btn" href="manage_categories.php">⬅ Admin Category</a>
@@ -463,6 +513,37 @@ $result = mysqli_query($conn, "SELECT * FROM users");
             </form>
         </div>
     </div>
+
+    <!-- CONTACT MESSAGES -->
+    <h2 style="text-align:center; margin-top:40px;">Contact Messages</h2>
+
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Sender Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date Sent</th>
+        </tr>
+
+        <?php
+        if ($msgResult && mysqli_num_rows($msgResult) > 0) {
+            while ($msg = mysqli_fetch_assoc($msgResult)) {
+                echo "<tr>";
+                echo "<td>{$msg['id']}</td>";
+                echo "<td>" . htmlspecialchars($msg['name']) . "</td>";
+                echo "<td>{$msg['email']}</td>";
+                echo "<td>" . htmlspecialchars($msg['message']) . "</td>";
+                echo "<td>{$msg['created_at']}</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No messages found</td></tr>";
+        }
+        ?>
+    </table>
+
 
     <script>
         function openEdit(id, firstName, lastName, email, password, passcode) {
