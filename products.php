@@ -60,8 +60,39 @@ if ($category_id > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
 </head>
+<style>
+#toast {
+  position: fixed;
+  top: 20px;             /* distance from top */
+  left: 50%;             /* center horizontally */
+  transform: translateX(-50%) translateY(-8px);
+  max-width: 400px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease, transform 260ms ease;
+  z-index: 9999;
+}
 
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#toast.success { background: #2fa84f; }
+#toast.error   { background: #e04545; }
+#toast.info    { background: #2b7bdc; }
+#toast.warn    { background: #f0a500; }
+
+
+ </style>
 <body>
+
 
     <header>
         <div class="header">
@@ -100,27 +131,32 @@ if ($category_id > 0) {
 
     <main>
         <div class="cart-container">
-            <header>
-                <h1 style="color: yellowgreen;">
-                    <?php echo $category_id > 0 ? $category_name : "Products Page"; ?>
-                </h1>
-                <div class="shopping">
-                    <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
-                    <span class="quantity">0</span>
-                </div>
-            </header>
-            <div class="list"></div>
+    <header class="product-header">
+        <h1 style="color: yellowgreen;">
+            <?php echo $category_id > 0 ? $category_name : "Products Page"; ?>
+        </h1>
+        <div class="shopping cart-icon">
+            <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
+            <span class="quantity">0</span>
         </div>
+    </header>
 
-        <div class="cart">
-            <h1>Cart</h1>
-            <ul class="listCard"></ul>
-            <div class="checkOut">
-                <div class="total">0</div>
-                <div class="closeShopping">Close</div>
-                <button class="buyButton">BUY</button>
-            </div>
-        </div>
+    <div class="list"></div>
+</div>
+
+<div class="cart">
+    <h1>My Cart</h1>
+    <ul class="listCard"></ul>
+    <div id="cartMessage" style="margin-top: 10px; font-weight: bold;"></div>
+    <!-- Toast container (place once, near </body>) -->
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="checkOut">
+        <div class="total">0</div>
+        <div class="closeShopping">Close</div>
+        <button class="buyButton">BUY</button>
+    </div>
+</div>
+
 
         <?php if ($category_id == 0) : ?>
 

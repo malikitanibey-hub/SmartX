@@ -951,6 +951,8 @@ footer {
   background-color: #796e45;
 }
 
+
+
 /*  Sign Up / Sign In Form  */
 
 .signup-cont {
@@ -1221,3 +1223,148 @@ footer {
   display: block;
   margin-left: 6rem;
 }
+
+
+/* Mobile Cart Slide-in and Push */
+@media (max-width: 768px) {
+    .cart {
+    position: fixed;
+    top: 0;
+    width: 90%;
+    left: 100%;        /* start off-screen */
+    height: 100vh;
+    transition: left 0.4s ease;
+    z-index: 9999;
+  }
+
+  .active .cart {
+    left: 5%;             /* push cart almost fully left */
+    width: 90%;           /* maintain width */
+  }
+
+  .cart-container {
+    width: 100%;
+    transition: transform 0.4s ease;
+    transform: translateX(0);
+  }
+
+  .active .cart-container {
+    transform: translateX(0); /* remove extra shift */
+  }
+}
+
+
+
+/* Filter dropdown fully mobile-friendly */
+@media (max-width: 768px) {
+  .filter-condition select {
+    width: 80%;         /* smaller width */
+    font-size: 13px;    /* smaller font */
+    padding: 6px 10px;  /* smaller padding */
+  }
+
+  .products-top-controls {
+    flex-direction: column;  /* stack controls vertically */
+    gap: 12px;               /* less gap */
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header-Top {
+    flex-direction: row;      /* keep items in a row */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .header-Top .title {
+    flex: 1;
+    font-size: 20px;          /* adjust title size if needed */
+  }
+
+  .header-Top .icons {
+    display: flex;
+    flex-direction: row;       /* keep icons in a row */
+    gap: 10px;
+    flex: unset;
+  }
+
+  .header-Top .icons span {
+    margin-right: 0;
+    font-size: 14px;
+  }
+}
+
+
+
+
+/* Mobile Cart Slide-in: always from right */
+/* Mobile Cart Slide-in: from right with some padding */
+@media (max-width: 768px) {
+  .cart {
+    position: fixed;
+    top: 0;
+    right: -95%;           /* start mostly off-screen to the right */
+    width: 90%;            /* width of cart */
+    height: 100vh;
+    background-color: #453e3b;
+    transition: right 0.4s ease;
+    z-index: 9999;
+  }
+
+  /* When active, slide in slightly from right */
+  .active .cart {
+    right: 5%;             /* push cart slightly left from screen edge */
+  }
+
+  .cart-container {
+    width: 100%;
+    transform: translateX(0) !important;
+  }
+}
+
+
+/* Cart icon + quantity circle (already done) */
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.product-header h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.cart-icon {
+  position: relative;           
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  top: -5px;
+}
+
+.cart-icon i {
+  font-size: 33px;
+  display: block;
+}
+
+.cart-icon .quantity {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  width: 21px;
+  height: 20px;
+  font-size: 13px;  
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+

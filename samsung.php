@@ -1,10 +1,8 @@
 <?php
 include "connect.php";
 
-// Get the selected filter (if any)
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'Default';
 
-// Base query
 $sql = "SELECT products.id, 
                products.name AS product_name, 
                products.image, 
@@ -13,9 +11,8 @@ $sql = "SELECT products.id,
                categories.name AS category_name
         FROM products
         JOIN categories ON products.category_id = categories.id
-        WHERE products.category_id = 1"; // Samsung category
+        WHERE products.category_id = 1";
 
-// Apply sorting based on selected filter
 switch ($filter) {
     case 'LowToHigh':
         $sql .= " ORDER BY products.price ASC";
@@ -30,7 +27,6 @@ switch ($filter) {
         $sql .= " ORDER BY products.name DESC";
         break;
     default:
-        // Default sorting (optional)
         $sql .= " ORDER BY products.id ASC";
         break;
 }
@@ -117,14 +113,13 @@ $result = mysqli_query($conn, $sql);
 
 
         <div class="cart">
-            <h1>Cart</h1>
+            <h1>My Cart</h1>
+            <div class="cart-message" style="display:none; font-weight:bold; margin: 10px 0;"></div>
             <ul class="listCard"></ul>
-            <div class="checkOut">
-                <div class="total">0</div>
-                <div class="closeShopping">Close</div>
-                <button class="buyButton">BUY</button>
-            </div>
+            <div class="total">Total: $0.00</div>
+            <button class="buyButton">Buy</button>
         </div>
+
 
         <!-- Back Buttom -->
         <a href="products.php"
