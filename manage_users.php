@@ -378,50 +378,48 @@ $msgResult = mysqli_query($conn, $msgQuery);
         }
 
 
-.tab-container {
-    width: 90%;
-    margin: 20px auto;
-}
+        .tab-container {
+            width: 90%;
+            margin: 20px auto;
+        }
 
-.tab-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
-.tab-buttons button {
-    padding: 10px 20px;
-    border: none;
-    background: #333;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        .tab-buttons button {
+            padding: 10px 20px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.tab-buttons button.active {
-    background: #ff2b4f;
-}
+        .tab-buttons button.active {
+            background: #ff2b4f;
+        }
 
-.tab-content {
-    display: none;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
 
-
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
-
-th {
-    background: #333;
-    color: white;
-}
-
+        th {
+            background: #333;
+            color: white;
+        }
     </style>
 </head>
 
@@ -433,7 +431,7 @@ th {
         <div class="navbar-center">
             <h1 class="page-title">Manage Users</h1>
         </div>
-        
+
         <div class="navbar-right">
             <a class="back-btn" href="admin.php">⬅ Admin Product</a>
             <a class="back-btn" href="manage_categories.php">⬅ Admin Category</a>
@@ -560,6 +558,67 @@ th {
             document.getElementById("popup").style.display = "none";
         }
     </script>
+
+
+<h2 style="text-align:center; margin-top:60px;">Carts</h2>
+
+<?php
+$cartResult = $conn->query("SELECT * FROM cart ORDER BY id ASC");  // Correct
+?>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>User ID</th>
+        <th>Email</th>
+        <th>Total ($)</th>
+        <th>Date</th>
+    </tr>
+
+    <?php while ($cart = mysqli_fetch_assoc($cartResult)): ?>
+        <tr>
+            <td><?= $cart['id'] ?></td>
+            <td><?= $cart['user_id'] ?></td>
+            <td><?= $cart['email'] ?></td>
+            <td><?= number_format($cart['total'], 2) ?></td>
+            <td><?= $cart['created_at'] ?></td>
+
+
+        </tr>
+    <?php endwhile; ?>
+</table>
+
+
+
+
+<h2 style="text-align:center; margin-top:60px;">Cart Items</h2>
+
+<?php
+$cartItemsResult = $conn->query("SELECT * FROM cart_items ORDER BY id ASC");  // Correct
+?>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Cart ID</th>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price ($)</th>
+    </tr>
+
+    <?php while ($item = mysqli_fetch_assoc($cartItemsResult)): ?>
+        <tr>
+            <td><?= $item['id'] ?></td>
+            <td><?= $item['cart_id'] ?></td>
+            <td><?= $item['product_id'] ?></td>
+            <td><?= $item['name'] ?></td>
+            <td><?= $item['quantity'] ?></td>
+            <td><?= number_format($item['price'], 2) ?></td>
+        </tr>
+    <?php endwhile; ?>
+</table>
+
 
 </body>
 
