@@ -8,6 +8,7 @@ if (!isset($_SESSION['email'])) {
 $fname = isset($_SESSION['fname']) ? $_SESSION['fname'] : "";
 $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
 
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +19,7 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart X</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.6">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -57,11 +58,12 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
             <div class="header-bottom">
                 <nav class="navbar">
                     <ul>
-                        <li><a href="home.php" class="active">Home</a></li>
-                        <li><a href="products.php">Products</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                        <li><a href="aboutus.php">About Us</a></li>
+                        <li><a href="index1.php?page=home" class="<?= $currentPage == 'home' ? 'active' : '' ?>">Home</a></li>
+                        <li><a href="index1.php?page=products" class="<?= $currentPage == 'products' ? 'active' : '' ?>">Products</a></li>
+                        <li><a href="index1.php?page=contact" class="<?= $currentPage == 'contact' ? 'active' : '' ?>">Contact Us</a></li>
+                        <li><a href="index1.php?page=aboutus" class="<?= $currentPage == 'aboutus' ? 'active' : '' ?>">About Us</a></li>
                     </ul>
+
                 </nav>
             </div>
         </div>
@@ -130,31 +132,30 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
         </div>
     </div>
 
-<div class="home-section bordered-section">
-    <h2>What is SmartX?</h2>
-    <p>
-        SmartX is your go-to platform in Lebanon for the latest technology, computers, accessories, and tech services. 
-        We provide high-quality products, custom-built PCs, laptops, iPads, smartwatches, and headphones. 
-        Our mission is to make technology simple, reliable, and accessible to everyone.
-    </p>
-</div>
+    <div class="home-section bordered-section">
+        <h2>What is SmartX?</h2>
+        <p>
+            SmartX is your go-to platform in Lebanon for the latest technology, computers, accessories, and tech services.
+            We provide high-quality products, custom-built PCs, laptops, iPads, smartwatches, and headphones.
+            Our mission is to make technology simple, reliable, and accessible to everyone.
+        </p>
+    </div>
 
-<div class="home-section bordered-section">
-    <h2>Our Ideas to Improve Your Experience</h2>
-    <ul class="ideas-list">
-        <li>Offer tutorials and guides for tech beginners.</li>
-        <li>Provide personalized recommendations based on user preferences.</li>
-        <li>Enable a community forum for tech discussion and support.</li>
-        <li>Regularly update with the latest gadgets and trends.</li>
-        <li>Offer seasonal discounts and exclusive deals for loyal customers.</li>
-    </ul>
-</div>
-
-
+    <div class="home-section bordered-section">
+        <h2>Our Ideas to Improve Your Experience</h2>
+        <ul class="ideas-list">
+            <li>Offer tutorials and guides for tech beginners.</li>
+            <li>Provide personalized recommendations based on user preferences.</li>
+            <li>Enable a community forum for tech discussion and support.</li>
+            <li>Regularly update with the latest gadgets and trends.</li>
+            <li>Offer seasonal discounts and exclusive deals for loyal customers.</li>
+        </ul>
+    </div>
 
     <footer>
         <p>Copyright 2024 &copy; <b>SmartX Lebanon</b></p>
     </footer>
+
     <script>
         let slideIndex = 1;
         showSlides(slideIndex);

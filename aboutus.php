@@ -8,6 +8,8 @@ if (!isset($_SESSION['email'])) {
 }
 $fname = isset($_SESSION['fname']) ? $_SESSION['fname'] : "";
 $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
+
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 'aboutus';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,7 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X | About Us</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.6">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
 
     <style>
@@ -50,10 +52,10 @@ $lname = isset($_SESSION['lname']) ? $_SESSION['lname'] : "";
             <div class="header-bottom">
                 <nav class="navbar">
                     <ul>
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="products.php">Products</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                        <li><a href="aboutus.php" class="active">About Us</a></li>
+                        <li><a href="index1.php?page=home" class="<?= $currentPage == 'home' ? 'active' : '' ?>">Home</a></li>
+                        <li><a href="index1.php?page=products" class="<?= $currentPage == 'products' ? 'active' : '' ?>">Products</a></li>
+                        <li><a href="index1.php?page=contact" class="<?= $currentPage == 'contact' ? 'active' : '' ?>">Contact Us</a></li>
+                        <li><a href="index1.php?page=aboutus" class="<?= $currentPage == 'aboutus' ? 'active' : '' ?>">About Us</a></li>
                     </ul>
                 </nav>
             </div>

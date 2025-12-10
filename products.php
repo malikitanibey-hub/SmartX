@@ -46,6 +46,7 @@ if ($category_id > 0) {
     $result = mysqli_query($conn, $sql);
 }
 
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 'aboutus';
 ?>
 
 <!DOCTYPE html>
@@ -56,32 +57,31 @@ if ($category_id > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
 </head>
 <style>
 #toast {
-  position: fixed;
-  top: 20px;             /* distance from top */
-  left: 50%;             /* center horizontally */
-  transform: translateX(-50%) translateY(-8px);
-  max-width: 400px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 260ms ease, transform 260ms ease;
-  z-index: 9999;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    padding: 12px 20px;
+    background: #333;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999999;
 }
 
 #toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 #toast.success { background: #2fa84f; }
@@ -89,8 +89,14 @@ if ($category_id > 0) {
 #toast.info    { background: #2b7bdc; }
 #toast.warn    { background: #f0a500; }
 
+#toast {
+    background:#444; /* fallback */
+}
 
- </style>
+
+
+</style>
+
 <body>
 
 
@@ -117,10 +123,10 @@ if ($category_id > 0) {
             <div class="header-bottom">
                 <nav class="navbar">
                     <ul>
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="products.php" class="active">Products</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                        <li><a href="aboutus.php">About Us</a></li>
+                        <li><a href="index1.php?page=home" class="<?= $currentPage == 'home' ? 'active' : '' ?>">Home</a></li>
+                        <li><a href="index1.php?page=products" class="<?= $currentPage == 'products' ? 'active' : '' ?>">Products</a></li>
+                        <li><a href="index1.php?page=contact" class="<?= $currentPage == 'contact' ? 'active' : '' ?>">Contact Us</a></li>
+                        <li><a href="index1.php?page=aboutus" class="<?= $currentPage == 'aboutus' ? 'active' : '' ?>">About Us</a></li>
                     </ul>
                 </nav>
             </div>
@@ -131,31 +137,32 @@ if ($category_id > 0) {
 
     <main>
         <div class="cart-container">
-    <header class="product-header">
-        <h1 style="color: yellowgreen;">
-            <?php echo $category_id > 0 ? $category_name : "Products Page"; ?>
-        </h1>
-        <div class="shopping cart-icon">
-            <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
-            <span class="quantity">0</span>
+            <header class="product-header">
+                <h1 style="color: yellowgreen;">
+                    <?php echo $category_id > 0 ? $category_name : "Products Page"; ?>
+                </h1>
+                <div class="shopping cart-icon">
+                    <i class="fa-sharp fa-solid fa-cart-shopping fa-fade fa-2xl"></i>
+                    <span class="quantity">0</span>
+                </div>
+            </header>
+
+            <div class="list"></div>
         </div>
-    </header>
 
-    <div class="list"></div>
-</div>
+        <div class="cart">
+            <h1>My Cart</h1>
+            <ul class="listCard"></ul>
+            <div id="cartMessage" style="margin-top: 10px; font-weight: bold;"></div>
+            <div class="checkOut">
+                <div class="total">0</div>
+                <div class="closeShopping">Close</div>
+                <button class="buyButton">BUY</button>
+            </div>
+        </div>
 
-<div class="cart">
-    <h1>My Cart</h1>
-    <ul class="listCard"></ul>
-    <div id="cartMessage" style="margin-top: 10px; font-weight: bold;"></div>
-    <!-- Toast container (place once, near </body>) -->
-    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <div class="checkOut">
-        <div class="total">0</div>
-        <div class="closeShopping">Close</div>
-        <button class="buyButton">BUY</button>
-    </div>
-</div>
+                    <!-- Toast container (place once, near </body>) -->
+            <div id="toast"></div>
 
 
         <?php if ($category_id == 0) : ?>
@@ -229,7 +236,8 @@ if ($category_id > 0) {
         <p>Copyright 2024 &copy; <b>SmartX Lebanon</b></p>
     </footer>
 
-    <script src="addtoCart.js"></script>
+    <script src="addtoCart.js?v=5.0"></script>
+
 </body>
 
 </html>

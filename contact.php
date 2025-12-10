@@ -37,6 +37,8 @@ $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
 unset($_SESSION['success']);
 unset($_SESSION['error']);
 
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 'contact';
+
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +49,7 @@ unset($_SESSION['error']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="Images/logo-removebg-preview.png">
     <title>Smart X | Contact Us</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.6">
     <script src="https://kit.fontawesome.com/eed1d22c4c.js" crossorigin="anonymous"></script>
 </head>
 
@@ -71,10 +73,10 @@ unset($_SESSION['error']);
             <div class="header-bottom">
                 <nav class="navbar">
                     <ul>
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="products.php">Products</a></li>
-                        <li><a href="contact.php" class="active">Contact Us</a></li>
-                        <li><a href="aboutus.php">About Us</a></li>
+                        <li><a href="index1.php?page=home" class="<?= $currentPage == 'home' ? 'active' : '' ?>">Home</a></li>
+                        <li><a href="index1.php?page=products" class="<?= $currentPage == 'products' ? 'active' : '' ?>">Products</a></li>
+                        <li><a href="index1.php?page=contact" class="<?= $currentPage == 'contact' ? 'active' : '' ?>">Contact Us</a></li>
+                        <li><a href="index1.php?page=aboutus" class="<?= $currentPage == 'aboutus' ? 'active' : '' ?>">About Us</a></li>
                     </ul>
                 </nav>
             </div>

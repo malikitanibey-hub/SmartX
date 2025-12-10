@@ -325,24 +325,158 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
             color: #fff;
             text-decoration: none;
         }
+
+
+        /* UNIVERSAL ADMIN NAVBAR (PC + MOBILE) */
+
+        .admin-nav {
+            background: rgba(255, 255, 255, 0.93);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-left h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            color: #0A3D62;
+        }
+
+        .nav-left .x {
+            color: #0b57d0;
+        }
+
+        /* Desktop Links */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-size: 16px;
+            text-decoration: none;
+            padding: 8px 14px;
+            background: #e0e7ff;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #0b57d0;
+        }
+
+        .nav-links a:hover {
+            background: #cfe0ff;
+        }
+
+        /* Mobile Menu Button */
+        .nav-menu-btn {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #0b57d0;
+        }
+
+        /* Mobile Slide-down Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu a {
+            padding: 14px 20px;
+            border-bottom: 1px solid #ddd;
+            text-decoration: none;
+            color: #0b57d0;
+            font-weight: bold;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+
+            /* Hide desktop menu on phone */
+            .nav-links {
+                display: none;
+            }
+
+            /* Show burger icon */
+            .nav-menu-btn {
+                display: block;
+            }
+
+            /* Make header more compact */
+            .nav-left h1 {
+                font-size: 20px;
+            }
+
+            .logo {
+                width: 45px;
+            }
+        }
+
+        .nav-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            font-weight: 700;
+            color: #0A3D62;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-title {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="header-top">
-            <div class="logo-box"><img src="Images/SmartX-logo-removebg-preview.png" alt="Logo"></div>
-            <div class="title">
-
-                <h1>Smart <span class="x">X</span> Admin</h1>
-                <a href="manage_users.php" class="manage-categories">Manage Users</a>
-                <a href="manage_categories.php" class="manage-categories">Manage Categories</a>
-
+        <div class="admin-nav">
+            <div class="nav-left">
+                <img src="Images/SmartX-logo-removebg-preview.png" class="logo">
             </div>
-            <div class="icons"><a href="logout.php">Go to Home Page</a></div>
+
+            <h1 class="nav-title">Smart <span class="x">X</span> Admin</h1>
+
+            <nav class="nav-links">
+                <a href="manage_users.php">Manage Users</a>
+                <a href="manage_categories.php">Manage Categories</a>
+                <a href="logout.php">Go to Home Page</a>
+            </nav>
+
+            <div class="nav-menu-btn">☰</div>
+        </div>
+
+        <div class="mobile-menu">
+            <a href="manage_users.php">Manage Users</a>
+            <a href="manage_categories.php">Manage Categories</a>
+            <a href="logout.php">Go to Home Page</a>
         </div>
     </header>
+
 
     <div class="form-container">
         <h2>Add A New Device</h2>
@@ -413,6 +547,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phone-name'])) {
                 document.getElementById("txtHint").innerHTML = "<b>Product info will be listed here...</b>";
             });
         </script>
+
+
+        <script>
+            const btn = document.querySelector(".nav-menu-btn");
+            const menu = document.querySelector(".mobile-menu");
+
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("open");
+            });
+        </script>
+
+
 
 </body>
 
