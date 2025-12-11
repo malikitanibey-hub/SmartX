@@ -64,15 +64,18 @@ if (isset($_POST['update_user'])) {
 }
 
 /* ------------ DELETE USER ------------ */
-if (isset($_GET['delete_id'])) {
-    $id = intval($_GET['delete_id']);
-    if (mysqli_query($conn, "DELETE FROM users WHERE id = $id")) {
+if (isset($_GET['btn-delete'])) {
+    $id = intval($_GET['btn-delete']);
+    $conn->query("DELETE FROM cart_items WHERE cart_id IN (SELECT id FROM cart WHERE user_id = $id)");
+    $conn->query("DELETE FROM cart WHERE user_id = $id");
+    if ($conn->query("DELETE FROM users WHERE id = $id")) {
         header("Location: manage_users.php?success=delete");
         exit();
     } else {
-        $error = "Error deleting user: " . mysqli_error($conn);
+        $error = "Error deleting user: " . $conn->error;
     }
 }
+
 
 $result = mysqli_query($conn, "SELECT * FROM users");
 
@@ -487,9 +490,10 @@ $msgResult = mysqli_query($conn, $msgQuery);
                            '<?= $row['passcode'] ?>'
                            )"><i class="fa-solid fa-pen"></i></button>
 
-                    <a class="btn-delete" href="manage_users.php?delete_id=<?= $row['id'] ?>">
+                    <a class="btn-delete" href="manage_users.php?btn-delete=<?= $row['id'] ?>">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
+
 
                 </td>
             </tr>
@@ -560,64 +564,64 @@ $msgResult = mysqli_query($conn, $msgQuery);
     </script>
 
 
-<h2 style="text-align:center; margin-top:60px;">Carts</h2>
+    <h2 style="text-align:center; margin-top:60px;">Carts</h2>
 
-<?php
-$cartResult = $conn->query("SELECT * FROM cart ORDER BY id ASC");  // Correct
-?>
+    <?php
+    $cartResult = $conn->query("SELECT * FROM cart ORDER BY id ASC");  // Correct
+    ?>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>User ID</th>
-        <th>Email</th>
-        <th>Total ($)</th>
-        <th>Date</th>
-    </tr>
-
-    <?php while ($cart = mysqli_fetch_assoc($cartResult)): ?>
+    <table>
         <tr>
-            <td><?= $cart['id'] ?></td>
-            <td><?= $cart['user_id'] ?></td>
-            <td><?= $cart['email'] ?></td>
-            <td><?= number_format($cart['total'], 2) ?></td>
-            <td><?= $cart['created_at'] ?></td>
-
-
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Email</th>
+            <th>Total ($)</th>
+            <th>Date</th>
         </tr>
-    <?php endwhile; ?>
-</table>
+
+        <?php while ($cart = mysqli_fetch_assoc($cartResult)): ?>
+            <tr>
+                <td><?= $cart['id'] ?></td>
+                <td><?= $cart['user_id'] ?></td>
+                <td><?= $cart['email'] ?></td>
+                <td><?= number_format($cart['total'], 2) ?></td>
+                <td><?= $cart['created_at'] ?></td>
+
+
+            </tr>
+        <?php endwhile; ?>
+    </table>
 
 
 
 
-<h2 style="text-align:center; margin-top:60px;">Cart Items</h2>
+    <h2 style="text-align:center; margin-top:60px;">Cart Items</h2>
 
-<?php
-$cartItemsResult = $conn->query("SELECT * FROM cart_items ORDER BY id ASC");  // Correct
-?>
+    <?php
+    $cartItemsResult = $conn->query("SELECT * FROM cart_items ORDER BY id ASC");  // Correct
+    ?>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Cart ID</th>
-        <th>Product ID</th>
-        <th>Product Name</th>
-        <th>Quantity</th>
-        <th>Price ($)</th>
-    </tr>
-
-    <?php while ($item = mysqli_fetch_assoc($cartItemsResult)): ?>
+    <table>
         <tr>
-            <td><?= $item['id'] ?></td>
-            <td><?= $item['cart_id'] ?></td>
-            <td><?= $item['product_id'] ?></td>
-            <td><?= $item['name'] ?></td>
-            <td><?= $item['quantity'] ?></td>
-            <td><?= number_format($item['price'], 2) ?></td>
+            <th>ID</th>
+            <th>Cart ID</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price ($)</th>
         </tr>
-    <?php endwhile; ?>
-</table>
+
+        <?php while ($item = mysqli_fetch_assoc($cartItemsResult)): ?>
+            <tr>
+                <td><?= $item['id'] ?></td>
+                <td><?= $item['cart_id'] ?></td>
+                <td><?= $item['product_id'] ?></td>
+                <td><?= $item['name'] ?></td>
+                <td><?= $item['quantity'] ?></td>
+                <td><?= number_format($item['price'], 2) ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
 
 
 </body>
